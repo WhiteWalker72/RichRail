@@ -16,4 +16,9 @@ public class Some<T> implements IOption<T> {
         return onSome.apply(value);
     }
 
+    @Override
+    public boolean isNone() {
+        return false;
+    }
+
 }

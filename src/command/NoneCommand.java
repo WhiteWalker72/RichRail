@@ -8,7 +8,7 @@ public class NoneCommand extends Command {
 
     @Override
     public String execute(String[] args) {
-        return "No command found for input " + convertArgsToString() + ".";
+        return "No command found for input: " + convertArgsToString(args) + ".";
     }
 
 }

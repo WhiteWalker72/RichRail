@@ -31,6 +31,10 @@ public abstract class Command {
     public abstract String execute(String[] args);
 
     public String convertArgsToString() {
+        return convertArgsToString(args);
+    }
+
+    public String convertArgsToString(String[] args) {
         String result = "";
         for (int i = 0; i < args.length; i++) {
             result += i < args.length - 1 ? args[i] + " " : args[i];

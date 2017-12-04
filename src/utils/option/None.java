@@ -11,4 +11,9 @@ public class None<T> implements IOption<T> {
         return onNone.get();
     }
 
+    @Override
+    public boolean isNone() {
+        return true;
+    }
+
 }
