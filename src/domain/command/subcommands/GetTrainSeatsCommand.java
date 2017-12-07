@@ -1,6 +1,6 @@
-package command.subcommands;
+package domain.command.subcommands;
 
-import command.Command;
+import domain.command.Command;
 
 public class GetTrainSeatsCommand extends Command {
 

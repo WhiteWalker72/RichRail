@@ -1,6 +1,6 @@
-package command;
+package domain.command;
 
-import command.subcommands.*;
+import domain.command.subcommands.*;
 import utils.option.IOption;
 import utils.option.None;
 import utils.option.Some;
@@ -40,7 +40,7 @@ public class CommandManager {
         Command command = getCommand(input).visit(() -> new NoneCommand(), x -> x);
 
         return args.length < command.getMinimalLength()
-                ? "Not enough arguments found for command: " + command.convertArgsToString() + "."
+                ? "Not enough arguments found for domain.command: " + command.convertArgsToString() + "."
                 : command.execute(args);
     }
 

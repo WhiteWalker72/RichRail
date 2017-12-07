@@ -1,4 +1,4 @@
-package command;
+package domain.command;
 
 public abstract class Command {
 
