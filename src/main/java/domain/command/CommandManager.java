@@ -1,10 +1,11 @@
 package domain.command;
 
-import domain.command.subcommands.*;
+import org.reflections.Reflections;
 import utils.option.IOption;
 import utils.option.None;
 import utils.option.Some;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,14 +15,21 @@ public class CommandManager {
     private final Set<Command> commands = new HashSet<>();
 
     private CommandManager() {
-        registerCommand(new AddToCommand());
-        registerCommand(new DeleteTrainCommand());
-        registerCommand(new DeleteWagonCommand());
-        registerCommand(new GetTrainSeatsCommand());
-        registerCommand(new GetWagonSeatsCommand());
-        registerCommand(new NewTrainCommand());
-        registerCommand(new NewWagonCommand());
-        registerCommand(new RemoveFromCommand());
+        Reflections reflections = new Reflections("domain.command.subcommands");
+        Set<Class<? extends Command>> commands =  reflections.getSubTypesOf(Command.class);
+        for (Class<? extends Command> command : commands) {
+            try {
+                registerCommand(command.getConstructor().newInstance());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void registerCommand(Command command) {
@@ -40,7 +48,7 @@ public class CommandManager {
         Command command = getCommand(input).visit(() -> new NoneCommand(), x -> x);
 
         return args.length < command.getMinimalLength()
-                ? "Not enough arguments found for domain.command: " + command.convertArgsToString() + "."
+                ? "Not enough arguments found for command: " + command.convertArgsToString() + "."
                 : command.execute(args);
     }
 
