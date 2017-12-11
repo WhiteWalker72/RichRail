@@ -4,8 +4,6 @@ import utils.option.IOption;
 import utils.option.None;
 import utils.option.Some;
 
-import java.util.Arrays;
-
 public class MathUtils {
 
     public static IOption<Integer> parseInt(String input) {

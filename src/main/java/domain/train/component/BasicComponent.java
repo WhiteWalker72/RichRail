@@ -2,16 +2,14 @@ package domain.train.component;
 
 import utils.Location;
 
-import java.awt.*;
-
 public class BasicComponent implements IComponent {
 
     private final String id;
     private final String type;
     private final Location location;
-    private final Image image;
+    private final String image;
 
-    public BasicComponent(String id, String type, Location location, Image image) {
+    public BasicComponent(String id, String type, Location location, String image) {
         this.id = id;
         this.type = type;
         this.location = location;
@@ -34,7 +32,7 @@ public class BasicComponent implements IComponent {
     }
 
     @Override
-    public Image getImage() {
+    public String getImage() {
         return image;
     }
 

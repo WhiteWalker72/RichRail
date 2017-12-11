@@ -1,20 +1,25 @@
 package domain.train;
 
 import domain.train.component.IComponent;
-import domain.train.iterator.Container;
 import domain.train.iterator.Iterator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Train implements Container<IComponent> {
+public class Train implements ITrain {
 
     private final String name;
-    private final List<IComponent> components = new ArrayList<>();
+    private final List<IComponent> components;
 
     public Train(String name, IComponent firstComponent) {
         this.name = name;
+        components = new ArrayList<>();
         components.add(firstComponent);
+    }
+
+    public Train(String name, List<IComponent> components) {
+        this.name = name;
+        this.components = components;
     }
 
     @Override
@@ -27,6 +32,7 @@ public class Train implements Container<IComponent> {
         components.remove(item);
     }
 
+    @Override
     public IComponent getComponent(String id) {
         for(Iterator<IComponent> iterator = getIterator(); iterator.hasNext();) {
             IComponent component = iterator.getNext();
@@ -42,6 +48,7 @@ public class Train implements Container<IComponent> {
         return new ComponentIterator();
     }
 
+    @Override
     public String getName() {
         return name;
     }

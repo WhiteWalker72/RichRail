@@ -2,8 +2,6 @@ package domain.train.component;
 
 import utils.Location;
 
-import java.awt.*;
-
 public interface IComponent {
 
     String getId();
@@ -12,6 +10,6 @@ public interface IComponent {
 
     Location getLocation();
 
-    Image getImage();
+    String getImage();
 
 }

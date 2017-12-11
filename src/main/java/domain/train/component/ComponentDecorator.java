@@ -2,8 +2,6 @@ package domain.train.component;
 
 import utils.Location;
 
-import java.awt.*;
-
 public class ComponentDecorator implements IComponent {
 
     private final IComponent component;
@@ -28,7 +26,7 @@ public class ComponentDecorator implements IComponent {
     }
 
     @Override
-    public Image getImage() {
+    public String getImage() {
         return component.getImage();
     }
 

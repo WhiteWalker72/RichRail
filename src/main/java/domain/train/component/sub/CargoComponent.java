@@ -6,7 +6,6 @@ import domain.train.component.IComponent;
 public class CargoComponent extends ComponentDecorator {
 
     private final int maxCargo;
-    private int currentCargo = 0;
 
     public CargoComponent(IComponent component, int maxCargo) {
         super(component);

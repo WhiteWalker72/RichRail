@@ -20,13 +20,9 @@ public class CommandManager {
         for (Class<? extends Command> command : commands) {
             try {
                 registerCommand(command.getConstructor().newInstance());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
@@ -45,7 +41,7 @@ public class CommandManager {
 
     public String execute(String input) {
         String[] args = input.split("\\s+");
-        Command command = getCommand(input).visit(() -> new NoneCommand(), x -> x);
+        Command command = getCommand(input).visit(NoneCommand::new, x -> x);
 
         return args.length < command.getMinimalLength()
                 ? "Not enough arguments found for command: " + command.convertArgsToString() + "."
