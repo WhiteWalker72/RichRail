@@ -1,6 +1,7 @@
 package domain.command.subcommands;
 
 import domain.command.Command;
+import domain.train.component.ComponentBuilder;
 import utils.MathUtils;
 import utils.option.IOption;
 
@@ -26,8 +27,11 @@ public class NewTrainCommand extends Command {
             power = powerOption.visit(() -> 10, x -> x);
         }
 
-        //TODO:
-        return "train test created";
+        if(trainManager.createTrain(trainName,new ComponentBuilder(trainName).withPullingPower(power).build())) {
+            return "Train: " + trainName + " created";
+        }
+        return  "Train: " + trainName + " already exists";
+
     }
 
 }
