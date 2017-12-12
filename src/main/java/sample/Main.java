@@ -13,10 +13,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        URL url = new File("src/main/resources/sample.fxml").toURL();
+        URL url = new File("src/main/resources/train.fxml").toURL();
         Parent root = FXMLLoader.load(url);
-        primaryStage.setTitle("Hello World test");
-        primaryStage.setScene(new Scene(root, 886, 671));
+        primaryStage.setTitle("RichRail");
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }	
 

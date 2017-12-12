@@ -7,5 +7,7 @@ public interface ITrain extends Container<IComponent> {
 
     String getName();
     IComponent getComponent(String id);
+    int getUsedPullingPower();
+    int getTotalPullingPower();
 
 }

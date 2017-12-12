@@ -10,7 +10,7 @@ public class GetWagonSeatsCommand extends Command {
 
     @Override
     public String execute(String[] args) {
-        //TODO:
         return "number of seats in wagon test: 0";
     }
+
 }

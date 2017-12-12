@@ -1,6 +1,7 @@
 package domain.train;
 
 import domain.train.component.IComponent;
+import domain.train.component.sub.LocomotiveComponent;
 import domain.train.iterator.Iterator;
 
 import java.util.ArrayList;
@@ -41,6 +42,18 @@ public class Train implements ITrain {
             }
         }
         return null;
+    }
+
+    public int getTotalPullingPower() {
+        return components.stream()
+                .filter(component -> component instanceof LocomotiveComponent)
+                .mapToInt(component -> ((LocomotiveComponent) component).getPullingPower()
+                ).sum();
+    }
+
+    public int getUsedPullingPower() {
+        return (int) components.stream()
+                .filter(component -> !(component instanceof LocomotiveComponent)).count();
     }
 
     @Override
