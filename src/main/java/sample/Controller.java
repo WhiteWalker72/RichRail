@@ -2,10 +2,14 @@ package sample;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.Arrays;
 
 public class Controller {
 
@@ -21,6 +25,9 @@ public class Controller {
     @FXML
     private TextArea codeOutput;
 
+    @FXML
+    private ScrollPane imagePane;
+
     public void initialize() {
         controlTextfieldButton.setOnAction((event -> {
             String name = controlTextfieldAdd.getText();
@@ -34,6 +41,23 @@ public class Controller {
 
             System.out.println(name);
         }));
+
+        try {
+            HBox hBox = new HBox();
+            for (int i = 0; i < 2; i++) {
+                for (String imageStr : Arrays.asList("locomotive.png", "basicwagon.png", "cargowagon.png", "passengerwagon.png")) {
+                    ImageView view = new ImageView();
+                    String url = new File("src/main/resources/" + imageStr).toURI().toURL().toExternalForm();
+                    view.setImage(new Image(url));
+                    hBox.getChildren().add(view);
+                }
+            }
+            imagePane.setContent(hBox);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
