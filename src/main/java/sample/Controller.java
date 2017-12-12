@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -43,16 +44,19 @@ public class Controller {
         }));
 
         try {
-            HBox hBox = new HBox();
+            VBox vBox = new VBox();
+            vBox.setSpacing(20);
             for (int i = 0; i < 2; i++) {
+                HBox hBox = new HBox();
                 for (String imageStr : Arrays.asList("locomotive.png", "basicwagon.png", "cargowagon.png", "passengerwagon.png")) {
                     ImageView view = new ImageView();
                     String url = new File("src/main/resources/" + imageStr).toURI().toURL().toExternalForm();
                     view.setImage(new Image(url));
                     hBox.getChildren().add(view);
                 }
+                vBox.getChildren().add(hBox);
             }
-            imagePane.setContent(hBox);
+            imagePane.setContent(vBox);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
