@@ -3,15 +3,14 @@ package domain.train.component;
 import domain.train.component.sub.CargoComponent;
 import domain.train.component.sub.LocomotiveComponent;
 import domain.train.component.sub.PassagerComponent;
-import utils.Location;
 
 
 public class ComponentBuilder {
 
     private IComponent component;
 
-    public ComponentBuilder(String id, String type, Location location, String image) {
-        this(new BasicComponent(id, type, location, image));
+    public ComponentBuilder(String id, String type, String image) {
+        this(new BasicComponent(id, type, image));
     }
 
     public ComponentBuilder(IComponent component) {

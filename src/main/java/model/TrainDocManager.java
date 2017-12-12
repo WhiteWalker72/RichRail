@@ -6,7 +6,6 @@ import domain.train.component.sub.CargoComponent;
 import domain.train.component.sub.LocomotiveComponent;
 import domain.train.component.sub.PassagerComponent;
 import org.bson.Document;
-import utils.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,6 @@ public class TrainDocManager {
                 ComponentBuilder builder = new ComponentBuilder(
                         comDoc.getString("id")
                         , comDoc.getString("type")
-                        , new Location(comDoc.getInteger("loc_x"), comDoc.getInteger("loc_y"))
                         , comDoc.getString("image")
                 );
                 if (comDoc.containsKey("cargo")) {
@@ -57,8 +55,6 @@ public class TrainDocManager {
         for (IComponent com : components) {
             Document comDoc = new Document("id", com.getId());
             comDoc.put("type", com.getType());
-            comDoc.put("loc_x", com.getLocation().getX());
-            comDoc.put("loc_y", com.getLocation().getY());
             comDoc.put("image", com.getImage());
             if (com instanceof CargoComponent) {
                 comDoc.put("cargo", ((CargoComponent) com).getMaxCargo());

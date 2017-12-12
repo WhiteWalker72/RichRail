@@ -18,6 +18,13 @@ public class TrainManager {
         trains = trainDAO.getAllTrains();
     }
 
+    public boolean validTrainName(String name) {
+        if (name.matches("[a-z][a-z|0-9]*")) {
+            return name.length() <= 10;
+        }
+        return false;
+    }
+
     public boolean createTrain(String name, IComponent component) {
         if (getTrain(name) != null)
             return false;

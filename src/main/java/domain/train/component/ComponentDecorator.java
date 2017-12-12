@@ -1,7 +1,5 @@
 package domain.train.component;
 
-import utils.Location;
-
 public class ComponentDecorator implements IComponent {
 
     private final IComponent component;
@@ -18,11 +16,6 @@ public class ComponentDecorator implements IComponent {
     @Override
     public String getType() {
         return component.getType();
-    }
-
-    @Override
-    public Location getLocation() {
-        return component.getLocation();
     }
 
     @Override

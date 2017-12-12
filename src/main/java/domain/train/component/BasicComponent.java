@@ -1,18 +1,14 @@
 package domain.train.component;
 
-import utils.Location;
-
 public class BasicComponent implements IComponent {
 
     private final String id;
     private final String type;
-    private final Location location;
     private final String image;
 
-    public BasicComponent(String id, String type, Location location, String image) {
+    public BasicComponent(String id, String type, String image) {
         this.id = id;
         this.type = type;
-        this.location = location;
         this.image = image;
     }
 
@@ -24,11 +20,6 @@ public class BasicComponent implements IComponent {
     @Override
     public String getType() {
         return type;
-    }
-
-    @Override
-    public Location getLocation() {
-        return location;
     }
 
     @Override
