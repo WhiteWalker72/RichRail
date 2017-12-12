@@ -18,9 +18,13 @@ public class ComponentBuilder {
     private int seats = 0;
 
     public ComponentBuilder(String id) {
+        this(id, "basic", "basicwagon.png");
+    }
+
+    public ComponentBuilder(String id, String type, String image) {
         this.id = id;
-        type = "basic";
-        image = "basicwagon.png";
+        this.type = type;
+        this.image = image;
     }
 
     public ComponentBuilder withCargo(int cargo) {
