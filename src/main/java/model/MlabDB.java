@@ -7,7 +7,7 @@ import com.mongodb.client.MongoDatabase;
 
 import java.util.Collections;
 
-public class MlabDB {
+class MlabDB {
 
     private final MongoClient mongo;
     private final MongoDatabase db;

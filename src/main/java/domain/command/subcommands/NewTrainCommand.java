@@ -27,11 +27,11 @@ public class NewTrainCommand extends Command {
             power = powerOption.visit(() -> 10, x -> x);
         }
 
-        if(trainManager.createTrain(trainName,new ComponentBuilder(trainName).withPullingPower(power).build())) {
-            return "Train: " + trainName + " created";
+        if (trainManager.getComponentManager().componentExists(trainName)) {
+            return "component " + trainName + " already exists.";
         }
-        return  "Train: " + trainName + " already exists";
-
+        return trainManager.createTrain(trainName, new ComponentBuilder(trainName).withPullingPower(power).build()) ?
+                "train " + trainName + " created" : "train " + trainName + " already exists.";
     }
 
 }
