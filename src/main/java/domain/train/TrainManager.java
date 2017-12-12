@@ -38,7 +38,11 @@ public class TrainManager {
     }
 
     public boolean deleteTrain(ITrain train) {
-        return trainDAO.deleteTrain(train);
+        boolean deleted = trainDAO.deleteTrain(train);
+        if (deleted) {
+            trains.remove(train);
+        }
+        return deleted;
     }
 
     public ITrain getTrain(String trainName) {

@@ -1,6 +1,7 @@
 package domain.command.subcommands;
 
 import domain.command.Command;
+import domain.train.ITrain;
 
 public class DeleteTrainCommand extends Command {
 
@@ -10,8 +11,19 @@ public class DeleteTrainCommand extends Command {
 
     @Override
     public String execute(String[] args) {
+        String trainName = args[1];
+        ITrain train = trainManager.getTrain(trainName);
+
+        if (train == null) {
+            return couldNotFind("train", trainName);
+        }
+
+        trainManager.deleteTrain(train);
+
+
+
         //TODO:
-        return "train test deleted";
+        return "train + " + trainName + " deleted";
     }
 
 }
