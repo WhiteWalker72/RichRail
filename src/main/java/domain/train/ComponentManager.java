@@ -18,8 +18,11 @@ public class ComponentManager {
         components = trainDAO.getAllOtherComponents();
     }
 
-    // Pair has has the train name as left value
-    public Pair<String, IComponent> getTrainComponent(String id) {
+    public Pair<String, IComponent> getComponentPair(String id) {
+        for (IComponent component : components)
+            if (component.getId().equalsIgnoreCase(id))
+                return new Pair<>(null, component);
+
         for (ITrain train : TrainManager.getInstance().getTrains()) {
             for(Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext();) {
                 IComponent component = iterator.getNext();
@@ -31,28 +34,16 @@ public class ComponentManager {
         return null;
     }
 
-    public IComponent getOtherComponent(String id) {
-        for (IComponent component : components)
-            if (component.getId().equalsIgnoreCase(id))
-                return component;
-        return null;
-    }
-
-    public boolean componentExists(String id) {
-        return getOtherComponent(id) != null || getTrainComponent(id) != null;
-    }
-
     public boolean validComponentId(String comId) {
         //TODO: regex
         return comId.length() <= 10;
     }
 
     public boolean insertComponent(IComponent component) {
-        return componentExists(component.getId()) ? true : trainDAO.insertComponent(component);
+        return getComponentPair(component.getId()) == null ? false: trainDAO.insertComponent(component);
     }
-
     public boolean removeComponent(IComponent component) {
-        return componentExists(component.getId()) ? trainDAO.removeComponent(component) : false;
+        return getComponentPair(component.getId()) == null ? false : trainDAO.removeComponent(component);
     }
 
 }

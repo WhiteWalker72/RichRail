@@ -21,7 +21,7 @@ public class TrainManager {
     }
 
     public boolean validTrainName(String name) {
-        if (name.matches("[a-z][a-z|0-9]*") && !name.equals("None")) {
+        if (name.matches("[a-z][a-z|0-9]*")) {
             return name.length() <= 10;
         }
         return false;

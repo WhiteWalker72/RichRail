@@ -27,7 +27,7 @@ public class NewTrainCommand extends Command {
             power = powerOption.visit(() -> 10, x -> x);
         }
 
-        if (trainManager.getComponentManager().componentExists(trainName)) {
+        if (trainManager.getComponentManager().getComponentPair(trainName) != null) {
             return "component " + trainName + " already exists.";
         }
         return trainManager.createTrain(trainName, new ComponentBuilder(trainName).withPullingPower(power).build()) ?
