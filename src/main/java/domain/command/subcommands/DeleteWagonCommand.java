@@ -12,7 +12,7 @@ public class DeleteWagonCommand extends Command {
 
     @Override
     public String execute(String[] args) {
-        String trainName = args[];
+    /*    String trainName = args[];
         String wagonName = args[1];
 
         TrainManager trainManager = TrainManager.getInstance();
@@ -22,7 +22,7 @@ public class DeleteWagonCommand extends Command {
             return couldNotFind("train", trainName);
         }
 
-        train.removeItem(train.getComponent(id: wagonName));
+        train.removeItem(train.getComponent(wagonName));
 
         Wagon wagon = trainManager.getTrain().getComponent();
 
@@ -30,7 +30,7 @@ public class DeleteWagonCommand extends Command {
             return couldNotFind("wagon", wagonName);
         }
 
-        trainManager.updateTrain(train);
+        trainManager.updateTrain(train);*/
 
 
         //TODO:

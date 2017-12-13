@@ -18,10 +18,10 @@ public class DeleteTrainCommand extends Command {
             return couldNotFind("train", trainName);
         }
 
-        trainManager.deleteTrain(train);
-
-        //TODO:
-        return "train + " + trainName + " deleted";
+        if (trainManager.deleteTrain(train)) {
+            return "train " + trainName + " deleted";
+        }
+        return "couldn't delete train " + trainName;
     }
 
 }

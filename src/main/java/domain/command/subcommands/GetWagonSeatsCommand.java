@@ -17,15 +17,15 @@ public class GetWagonSeatsCommand extends Command {
         String naamWagon = args[2];
         int numSeatsWagon = 0;
 
-        ITrain train = trainManager.getTrain(naamBijbehorendeTrein);
+//        ITrain train = trainManager.getTrain(naamBijbehorendeTrein);
 
-        for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
+ /*       for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
             IComponent component = iterator.getNext();
             if (component instanceof PassagerComponent) {
                 numSeatsWagon =+ ((PassagerComponent) component).getSeats();
             }
         }
-
+*/
         return "number of seats in wagon test: " + numSeatsWagon;
     }
 

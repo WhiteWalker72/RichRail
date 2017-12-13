@@ -26,7 +26,7 @@ public class AddToCommand extends Command {
 
         Pair<String, IComponent> componentPair = trainManager.getComponentManager().getComponentPair(wagonId);
         if (componentPair == null) {
-            return "Wagon '" + wagonId + "' does not exist";
+            return "wagon '" + wagonId + "' does not exist";
         }
         IComponent component = componentPair.getRightValue();
 
