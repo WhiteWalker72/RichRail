@@ -1,5 +1,10 @@
 package sample;
 
+import domain.command.CommandManager;
+import domain.train.ITrain;
+import domain.train.TrainManager;
+import domain.train.component.IComponent;
+import domain.train.iterator.Iterator;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,7 +15,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.Arrays;
 
 public class Controller {
 
@@ -30,27 +34,40 @@ public class Controller {
     private ScrollPane imagePane;
 
     public void initialize() {
+        drawTrains();
+
         controlTextfieldButton.setOnAction((event -> {
             String name = controlTextfieldAdd.getText();
-            ObservableList<String> items = controlSelectBox.getItems();
-            items.add(name);
-            controlSelectBox.setItems(items);
 
-            String text = codeOutput.getText();
-            text += name + " train created.\n";
-            codeOutput.setText(text);
 
-            System.out.println(name);
+            String commandResult = CommandManager.getInstance().execute("new train " + name);
+            writeToConsole(commandResult);
+
+            ITrain train = TrainManager.getInstance().getTrain(name);
+            if (train != null) {
+                ObservableList<String> items = controlSelectBox.getItems();
+                items.add(name);
+                controlSelectBox.setItems(items);
+                drawTrains();
+            }
         }));
+    }
 
+    private void writeToConsole(String text) {
+        String consoleText = codeOutput.getText();
+        consoleText += text + "\n";
+        codeOutput.setText(consoleText);
+    }
+
+    private void drawTrains() {
         try {
             VBox vBox = new VBox();
             vBox.setSpacing(20);
-            for (int i = 0; i < 2; i++) {
+            for (ITrain train : TrainManager.getInstance().getTrains()) {
                 HBox hBox = new HBox();
-                for (String imageStr : Arrays.asList("locomotive.png", "basicwagon.png", "cargowagon.png", "passengerwagon.png")) {
+                for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext();) {
                     ImageView view = new ImageView();
-                    String url = new File("src/main/resources/" + imageStr).toURI().toURL().toExternalForm();
+                    String url = new File("src/main/resources/" + iterator.getNext().getImage()).toURI().toURL().toExternalForm();
                     view.setImage(new Image(url));
                     hBox.getChildren().add(view);
                 }
@@ -61,7 +78,6 @@ public class Controller {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
     }
 
 }

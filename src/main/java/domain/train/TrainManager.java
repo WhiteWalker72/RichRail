@@ -21,9 +21,8 @@ public class TrainManager {
     }
 
     public boolean validTrainName(String name) {
-        if (name.matches("[a-z][a-z|0-9]*")) {
+        if (name.matches("[a-z][a-z|0-9]*"))
             return name.length() <= 10;
-        }
         return false;
     }
 
@@ -58,7 +57,7 @@ public class TrainManager {
         return componentManager;
     }
 
-    List<ITrain> getTrains() {
+    public List<ITrain> getTrains() {
         return trains;
     }
 

@@ -54,11 +54,11 @@ public class ComponentBuilder {
     public IComponent build() {
         IComponent component = new BasicComponent(id, type, image);
         if (cargo > 0)
-            new CargoComponent(component, cargo);
+            component = new CargoComponent(component, cargo);
         if (seats > 0)
-            new PassagerComponent(component, seats);
+            component = new PassagerComponent(component, seats);
         if (pullingPower > 0)
-            new LocomotiveComponent(component,pullingPower);
+            component = new LocomotiveComponent(component,pullingPower);
         return component;
     }
 

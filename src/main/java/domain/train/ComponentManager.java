@@ -35,8 +35,9 @@ public class ComponentManager {
     }
 
     public boolean validComponentId(String comId) {
-        //TODO: regex
-        return comId.length() <= 10;
+        if (comId.matches("[a-z][a-z|0-9]*"))
+            return comId.length() <= 10;
+        return false;
     }
 
     public boolean insertComponent(IComponent component) {
