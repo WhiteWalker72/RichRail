@@ -11,15 +11,17 @@ public class TrainManager {
     private static TrainManager instance;
     private final List<ITrain> trains;
     private final TrainDAO trainDAO;
+    private final ComponentManager componentManager;
 
     private TrainManager() {
         // Using mongo
         trainDAO = new TrainDAOMongoImpl();
         trains = trainDAO.getAllTrains();
+        componentManager = new ComponentManager(trainDAO);
     }
 
     public boolean validTrainName(String name) {
-        if (name.matches("[a-z][a-z|0-9]*")) {
+        if (name.matches("[a-z][a-z|0-9]*") && !name.equals("None")) {
             return name.length() <= 10;
         }
         return false;
@@ -50,6 +52,14 @@ public class TrainManager {
             if (train.getName().equalsIgnoreCase(trainName))
                 return train;
         return null;
+    }
+
+    public ComponentManager getComponentManager() {
+        return componentManager;
+    }
+
+    List<ITrain> getTrains() {
+        return trains;
     }
 
     public static TrainManager getInstance() {

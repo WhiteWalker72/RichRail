@@ -16,10 +16,12 @@ import java.util.Map;
 public class TrainDAOMongoImpl implements TrainDAO {
 
     private final MongoCollection<Document> trainCollection;
+    private final MongoCollection<Document> componentCollection;
     private final Map<String, TrainDocManager> trainMap = new HashMap<>();
 
     public TrainDAOMongoImpl() {
         this.trainCollection = MlabDB.getInstance().getDatabase().getCollection("trains");
+        this.componentCollection = MlabDB.getInstance().getDatabase().getCollection("components");
     }
 
     @Override
@@ -30,6 +32,17 @@ public class TrainDAOMongoImpl implements TrainDAO {
             trains.add(new Train(manager.getName(), manager.getComponents()));
         }
         return trains;
+    }
+
+    @Override
+    public List<IComponent> getAllOtherComponents() {
+        ComponentDocHelper helper = new ComponentDocHelper();
+        List<IComponent> allComponents = new ArrayList<>();
+
+        for (Document comDoc : getComponentCollection().find()) {
+            allComponents.add(helper.docToComponent(comDoc));
+        }
+        return allComponents;
     }
 
     @Override
@@ -64,6 +77,17 @@ public class TrainDAOMongoImpl implements TrainDAO {
         return true;
     }
 
+    @Override
+    public boolean insertComponent(IComponent component) {
+        componentCollection.insertOne(new ComponentDocHelper().componentToDoc(component));
+        return true;
+    }
+
+    @Override
+    public boolean removeComponent(IComponent component) {
+        return componentCollection.findOneAndDelete(new Document("id", component.getId())) != null;
+    }
+
     private TrainDocManager getTrainDocManager(String name) {
         TrainDocManager trainDocManager = trainMap.get(name);
         if (trainDocManager == null) {
@@ -88,6 +112,10 @@ public class TrainDAOMongoImpl implements TrainDAO {
 
     private MongoCollection<Document> getTrainCollection() {
         return trainCollection;
+    }
+
+    private MongoCollection<Document> getComponentCollection() {
+        return componentCollection;
     }
 
 }

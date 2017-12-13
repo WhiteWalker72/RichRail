@@ -20,8 +20,6 @@ public class DeleteTrainCommand extends Command {
 
         trainManager.deleteTrain(train);
 
-
-
         //TODO:
         return "train + " + trainName + " deleted";
     }
