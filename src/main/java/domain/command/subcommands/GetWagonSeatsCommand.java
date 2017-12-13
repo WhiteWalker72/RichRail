@@ -16,24 +16,21 @@ public class GetWagonSeatsCommand extends Command {
 
     @Override
     public String execute(String[] args) {
-        String naamWagon = args[2];
+        String nameWagon = args[2];
         int numSeatsWagon = 0;
 
-        Pair<String, IComponent> pair = trainManager.getComponentManager().getComponentPair(naamWagon);
+        Pair<String, IComponent> pair = trainManager.getComponentManager().getComponentPair(nameWagon);
 
         if (pair == null) {
-            return couldNotFind("wagon", naamWagon);
+            return couldNotFind("wagon", nameWagon);
         }
 
         IComponent component = pair.getRightValue();
-        System.out.println(component.getId());
 
         if (component instanceof PassagerComponent) {
             numSeatsWagon = ((PassagerComponent) component).getSeats();
-            System.out.println("numSeatsWagon = " + numSeatsWagon);
         }
 
-        return "number of seats in wagon " + naamWagon + ": " + numSeatsWagon;
+        return "number of seats in wagon " + nameWagon + ": " + numSeatsWagon;
     }
-
 }

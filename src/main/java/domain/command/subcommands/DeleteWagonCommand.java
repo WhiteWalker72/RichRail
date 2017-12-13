@@ -22,26 +22,27 @@ public class DeleteWagonCommand extends Command {
 
         if (pair == null) {
             return couldNotFind("wagon", wagonName);
-        } else if (pair.getLeftValue() != null) {
+        }
+
+        if (pair.getLeftValue() != null) {
             String trainName = pair.getLeftValue();
             ITrain train = trainManager.getTrain(trainName);
 
             IComponent component = pair.getRightValue();
+            train.removeItem(train.getComponent(wagonName));
 
             train.removeItem(component);
 
             trainManager.updateTrain(train);
 
-            //TODO:
             return "wagon " + wagonName + " from train " + trainName + " deleted";
-        } else {
-
-            IComponent component = pair.getRightValue();
-
-            trainManager.getComponentManager().removeComponent(component);
-
-            //TODO:
-            return "wagon " + wagonName + " deleted";
         }
+
+        IComponent component = pair.getRightValue();
+
+        trainManager.getComponentManager().removeComponent(component);
+
+        return "wagon " + wagonName + " deleted";
     }
 }
+
