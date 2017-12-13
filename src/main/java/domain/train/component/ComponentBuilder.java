@@ -51,6 +51,11 @@ public class ComponentBuilder {
         return this;
     }
 
+    public ComponentBuilder withCustomImage(String image) {
+        this.image = image;
+        return this;
+    }
+
     public IComponent build() {
         IComponent component = new BasicComponent(id, type, image);
         if (cargo > 0)
