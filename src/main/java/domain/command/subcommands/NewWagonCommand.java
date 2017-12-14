@@ -16,7 +16,7 @@ public class NewWagonCommand extends Command {
         String typeWagon;
 
         try {
-            typeWagon = args[3];
+            typeWagon = args[3].toLowerCase();
         } catch (Exception e) {
             typeWagon = "BasicComponent";
         }
@@ -39,27 +39,27 @@ public class NewWagonCommand extends Command {
             return "component " + wagonName + " already exists.";
         }
 
-        if (typeWagon.equals("BasicComponent")) {
+        if (typeWagon.equals("basic")) {
             // Maak een basic wagon
             return trainManager.getComponentManager().insertComponent(new ComponentBuilder(wagonName).build()) ?
-                    "wagon " + wagonName + " created" : "wagon " + wagonName + " already exists.";
+                    "basic wagon " + wagonName + " created" : "wagon " + wagonName + " already exists.";
         }
 
-        if (typeWagon.equals("PassagerComponent")) {
+        if (typeWagon.equals("passenger")) {
 
             // Maak een passagierswagon
             return trainManager.getComponentManager().insertComponent(new ComponentBuilder(wagonName).withPassengers(amount).build()) ?
-                    "wagon " + wagonName + " with " + amount + " passagers created" : "wagon " + wagonName + " already exists.";
+                    "wagon " + wagonName + " with " + amount + " passengers created" : "wagon " + wagonName + " already exists.";
 
         }
 
-        if (typeWagon.equals("CargoComponent")) {
+        if (typeWagon.equals("cargo")) {
 
             // Maak een cargowagon
             return trainManager.getComponentManager().insertComponent(new ComponentBuilder(wagonName).withCargo(amount).build()) ?
-                    "wagon " + wagonName + " with " + amount + " hoeveelheid cargo created" : "wagon " + wagonName + " already exists.";
+                    "wagon " + wagonName + " with " + amount + " amount of cargo created" : "wagon " + wagonName + " already exists.";
         }
 
-        return "Het is niet gelukt om een wagon aan te maken";
+        return "did not succeed in creating a wagon";
     }
 }
