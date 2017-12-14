@@ -42,10 +42,18 @@ public class ComponentManager {
     }
 
     public boolean insertComponent(IComponent component) {
-        return getComponentPair(component.getId()) == null && componentDAO.insertComponent(component);
+        if (getComponentPair(component.getId()) == null) {
+            components.add(component);
+            return componentDAO.insertComponent(component);
+        }
+        return false;
     }
 
     public boolean removeComponent(IComponent component) {
-        return getComponentPair(component.getId()) != null && componentDAO.removeComponent(component);
+        if (getComponentPair(component.getId()) != null) {
+            components.remove(component);
+            return componentDAO.removeComponent(component);
+        }
+        return  false;
     }
 }
