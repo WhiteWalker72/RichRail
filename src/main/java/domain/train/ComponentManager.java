@@ -41,10 +41,9 @@ public class ComponentManager {
     }
 
     public boolean insertComponent(IComponent component) {
-        return getComponentPair(component.getId()) == null ? false: trainDAO.insertComponent(component);
+        return getComponentPair(component.getId()) != null ? false: trainDAO.insertComponent(component);
     }
     public boolean removeComponent(IComponent component) {
         return getComponentPair(component.getId()) == null ? false : trainDAO.removeComponent(component);
     }
-
 }
