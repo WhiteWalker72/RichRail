@@ -1,6 +1,5 @@
 package sample;
 
-import com.sun.javafx.collections.ElementObservableListDecorator;
 import domain.command.CommandManager;
 import domain.train.ITrain;
 import domain.train.TrainManager;
@@ -9,17 +8,21 @@ import domain.train.iterator.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Controller {
 
@@ -50,12 +53,21 @@ public class Controller {
     @FXML
     private Button codeSubmit;
 
+    @FXML
+    private Button viewTrainsButton;
+
     public void initialize() {
-        drawTrains();
         updateTrainNames();
+
+        if (!TrainManager.getInstance().getTrains().isEmpty()) {
+            ITrain firstTrain = TrainManager.getInstance().getTrains().get(0);
+            drawTrain(firstTrain.getName());
+            controlSelectBox.setValue(firstTrain.getName());
+        }
 
         controlSelectBox.setOnAction((event -> {
             String trainName = (String) controlSelectBox.getValue();
+            drawTrain(trainName);
             ITrain train = TrainManager.getInstance().getTrain(trainName);
 
             if (train != null) {
@@ -79,7 +91,6 @@ public class Controller {
                     ObservableList<String> items = controlSelectBox.getItems();
                     items.add(name);
                     controlSelectBox.setItems(items);
-                    drawTrains();
                 }
             }
         }));
@@ -89,7 +100,23 @@ public class Controller {
             if (command.length() > 0) {
                 writeToConsole(CommandManager.getInstance().execute(command));
                 updateTrainNames();
-                drawTrains();
+            }
+        });
+
+        // Open the view trains screen
+        viewTrainsButton.setOnAction(event -> {
+            try {
+                ((Stage) viewTrainsButton.getScene().getWindow()).close();
+                URL url = new File("src/main/resources/viewtrains.fxml").toURI().toURL();
+                Parent root = FXMLLoader.load(url);
+                Stage stage = new Stage();
+                stage.setTitle("Trains");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
@@ -100,24 +127,22 @@ public class Controller {
         codeOutput.setText(consoleText);
     }
 
-    private void drawTrains() {
-        try {
-            VBox vBox = new VBox();
-            vBox.setSpacing(20);
-            for (ITrain train : TrainManager.getInstance().getTrains()) {
-                HBox hBox = new HBox();
-                for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
+    private void drawTrain(String trainName) {
+        ITrain train = TrainManager.getInstance().getTrain(trainName);
+        if (train != null) {
+            HBox hBox = new HBox();
+            for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
+                try {
                     ImageView view = new ImageView();
                     String url = new File("src/main/resources/" + iterator.getNext().getImage()).toURI().toURL().toExternalForm();
                     view.setImage(new Image(url));
                     hBox.getChildren().add(view);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
                 }
-                vBox.getChildren().add(hBox);
-            }
-            imagePane.setContent(vBox);
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            }
+            imagePane.setContent(hBox);
         }
     }
 

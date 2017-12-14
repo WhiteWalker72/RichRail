@@ -4,7 +4,6 @@ import domain.train.component.IComponent;
 import domain.train.iterator.Iterator;
 import model.ComponentDAO;
 import model.ComponentDAOMongoImpl;
-import model.TrainDAO;
 import utils.Pair;
 
 import java.util.List;
@@ -43,11 +42,11 @@ public class ComponentManager {
     }
 
     public boolean insertComponent(IComponent component) {
-        return getComponentPair(component.getId()) == null ? false: componentDAO.insertComponent(component);
+        return getComponentPair(component.getId()) == null && componentDAO.insertComponent(component);
     }
 
     public boolean removeComponent(IComponent component) {
-        return getComponentPair(component.getId()) == null ? false : componentDAO.removeComponent(component);
+        return getComponentPair(component.getId()) != null && componentDAO.removeComponent(component);
     }
 
 }
