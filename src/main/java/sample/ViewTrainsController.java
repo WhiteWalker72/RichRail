@@ -10,11 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import utils.DrawUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,24 +50,16 @@ public class ViewTrainsController {
     }
 
     private void drawTrains() {
-        try {
-            VBox vBox = new VBox();
-            vBox.setSpacing(20);
-            for (ITrain train : TrainManager.getInstance().getTrains()) {
-                HBox hBox = new HBox();
-                for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
-                    ImageView view = new ImageView();
-                    String url = new File("src/main/resources/" + iterator.getNext().getImage()).toURI().toURL().toExternalForm();
-                    view.setImage(new Image(url));
-                    hBox.getChildren().add(view);
-                }
-                vBox.getChildren().add(hBox);
+        VBox vBox = new VBox();
+        vBox.setSpacing(20);
+        for (ITrain train : TrainManager.getInstance().getTrains()) {
+            HBox hBox = new HBox();
+            for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
+                hBox.getChildren().add(DrawUtils.getComponentPane(iterator.getNext()));
             }
-            trainPane.setContent(vBox);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            vBox.getChildren().add(hBox);
         }
+        trainPane.setContent(vBox);
     }
 
 }

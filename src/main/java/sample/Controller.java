@@ -12,10 +12,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import utils.DrawUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -132,15 +131,7 @@ public class Controller {
         if (train != null) {
             HBox hBox = new HBox();
             for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
-                try {
-                    ImageView view = new ImageView();
-                    String url = new File("src/main/resources/" + iterator.getNext().getImage()).toURI().toURL().toExternalForm();
-                    view.setImage(new Image(url));
-                    hBox.getChildren().add(view);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-
+                hBox.getChildren().add(DrawUtils.getComponentPane(iterator.getNext()));
             }
             imagePane.setContent(hBox);
         }
