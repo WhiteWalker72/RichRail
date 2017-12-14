@@ -26,7 +26,7 @@ public class GetTrainSeatsCommand extends Command {
         for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
             IComponent component = iterator.getNext();
             if (component instanceof PassagerComponent) {
-                totalNumberOfSeats = +((PassagerComponent) component).getSeats();
+                totalNumberOfSeats += ((PassagerComponent) component).getSeats();
             }
         }
         return "number of seats in train " + trainName + ": " + totalNumberOfSeats;
