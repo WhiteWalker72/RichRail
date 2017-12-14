@@ -17,7 +17,7 @@ public class TrainManager {
         // Using mongo
         trainDAO = new TrainDAOMongoImpl();
         trains = trainDAO.getAllTrains();
-        componentManager = new ComponentManager(trainDAO);
+        componentManager = new ComponentManager();
     }
 
     public boolean validTrainName(String name) {

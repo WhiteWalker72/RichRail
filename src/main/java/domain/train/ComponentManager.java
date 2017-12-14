@@ -2,6 +2,8 @@ package domain.train;
 
 import domain.train.component.IComponent;
 import domain.train.iterator.Iterator;
+import model.ComponentDAO;
+import model.ComponentDAOMongoImpl;
 import model.TrainDAO;
 import utils.Pair;
 
@@ -11,11 +13,11 @@ import java.util.List;
 public class ComponentManager {
 
     private final List<IComponent> components;
-    private final TrainDAO trainDAO;
+    private final ComponentDAO componentDAO;
 
-    ComponentManager(TrainDAO trainDAO) {
-        this.trainDAO = trainDAO;
-        components = trainDAO.getAllOtherComponents();
+    ComponentManager() {
+        this.componentDAO = new ComponentDAOMongoImpl();
+        components = componentDAO.getAllOtherComponents();
     }
 
     public Pair<String, IComponent> getComponentPair(String id) {
@@ -41,9 +43,10 @@ public class ComponentManager {
     }
 
     public boolean insertComponent(IComponent component) {
-        return getComponentPair(component.getId()) != null ? false: trainDAO.insertComponent(component);
+        return getComponentPair(component.getId()) != null ? false: componentDAO.insertComponent(component);
     }
+
     public boolean removeComponent(IComponent component) {
-        return getComponentPair(component.getId()) == null ? false : trainDAO.removeComponent(component);
+        return getComponentPair(component.getId()) == null ? false : componentDAO.removeComponent(component);
     }
 }

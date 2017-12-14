@@ -5,9 +5,7 @@ import domain.train.component.ComponentBuilder;
 import utils.MathUtils;
 import utils.option.IOption;
 
-
 public class NewWagonCommand extends Command {
-
     public NewWagonCommand() {
         super("new wagon", 3, "new", "wagon", "name", "type", "amount");
     }
@@ -17,7 +15,6 @@ public class NewWagonCommand extends Command {
         String wagonName = args[2].toLowerCase();
         String typeWagon;
 
-        // kijk hoeveel argumenten je hebt ipv dit
         try {
             typeWagon = args[3];
         } catch (Exception e) {
@@ -37,7 +34,6 @@ public class NewWagonCommand extends Command {
         if (!trainManager.getComponentManager().validComponentId(wagonName)) {
             return "Invalid name for " + wagonName + ".";
         }
-
 
         if (trainManager.getComponentManager().getComponentPair(wagonName) != null) {
             return "component " + wagonName + " already exists.";
