@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import utils.DrawUtils;
@@ -23,6 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.input.KeyEvent;
 
 public class Controller {
 
@@ -105,6 +107,12 @@ public class Controller {
                 }
             }
         }));
+
+        codeInput.setOnKeyPressed (event ->  {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                codeSubmit.fire();
+            }
+        });
 
         codeSubmit.setOnAction(event -> {
             String command = codeInput.getText();
