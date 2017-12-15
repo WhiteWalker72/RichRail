@@ -39,7 +39,7 @@ public class NewWagonCommand extends Command {
             return "component " + wagonName + " already exists.";
         }
 
-        if (typeWagon.equals("basic")) {
+        if (typeWagon.equals("basic") || typeWagon == null ) {
             // Maak een basic wagon
             return trainManager.getComponentManager().insertComponent(new ComponentBuilder(wagonName).build()) ?
                     "basic wagon " + wagonName + " created" : "wagon " + wagonName + " already exists.";
