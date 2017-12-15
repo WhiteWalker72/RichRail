@@ -16,7 +16,7 @@ public class CommandManager {
 
     private CommandManager() {
         Reflections reflections = new Reflections("domain.command.subcommands");
-        Set<Class<? extends Command>> commands =  reflections.getSubTypesOf(Command.class);
+        Set<Class<? extends Command>> commands = reflections.getSubTypesOf(Command.class);
         for (Class<? extends Command> command : commands) {
             try {
                 registerCommand(command.getConstructor().newInstance());
