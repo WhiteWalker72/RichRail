@@ -48,6 +48,9 @@ public class Controller {
     private ListView controlAddList;
 
     @FXML
+    private Button controlRemoveButton;
+
+    @FXML
     private TextField codeInput;
 
     @FXML
@@ -64,6 +67,14 @@ public class Controller {
             drawTrain(firstTrain.getName());
             controlSelectBox.setValue(firstTrain.getName());
         }
+        controlRemoveButton.setOnAction(event -> {
+            String commandResult = CommandManager.getInstance().execute("delete wagon " + controlRemoveList.getSelectionModel().getSelectedItem());
+            writeToConsole(commandResult);
+            updateTrainNames();
+            drawTrain(controlRemoveList.getSelectionModel().getSelectedItems().toString());
+        });
+
+
 
         controlSelectBox.setOnAction((event -> {
             String trainName = (String) controlSelectBox.getValue();
