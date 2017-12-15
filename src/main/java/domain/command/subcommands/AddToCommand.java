@@ -19,7 +19,7 @@ public class AddToCommand extends Command {
             return couldNotFind("train", trainName);
         }
 
-        if (targetTrain.getTotalPullingPower() >= targetTrain.getUsedPullingPower()) {
+        if (targetTrain.getUsedPullingPower() + 1 >= targetTrain.getTotalPullingPower()) {
             return targetTrain.getName() + " reached it's max pulling power";
         }
         String wagonId = args[1];
