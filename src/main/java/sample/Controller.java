@@ -69,9 +69,7 @@ public class Controller {
     private Button deleteTrainButton;
 
     public void initialize() {
-        updateTrainNames();
-        populateTrainList();
-        populateComboBox();
+        updateScreen();
 
         if (!TrainFacade.getInstance().getTrains().isEmpty()) {
             ITrain firstTrain = TrainFacade.getInstance().getTrains().get(0);
@@ -79,10 +77,11 @@ public class Controller {
             controlSelectBox.setValue(firstTrain.getName());
             updateComponentRemoveList(firstTrain);
         }
+
         controlRemoveButton.setOnAction(event -> {
             String commandResult = CommandManager.getInstance().execute("delete wagon " + controlRemoveList.getSelectionModel().getSelectedItem());
             writeToConsole(commandResult);
-            updateTrainNames();
+            updateScreen();
             drawTrain(controlRemoveList.getSelectionModel().getSelectedItems().toString());
         });
 
@@ -90,7 +89,6 @@ public class Controller {
             String trainName = (String) controlSelectBox.getValue();
             drawTrain(trainName);
             ITrain train = TrainFacade.getInstance().getTrain(trainName);
-
             updateComponentRemoveList(train);
         }));
 
@@ -110,7 +108,6 @@ public class Controller {
                     controlSelectBox.setItems(items);
                 }
             }
-
         }));
 
         codeInput.setOnKeyPressed (event ->  {
@@ -130,9 +127,7 @@ public class Controller {
                 }
                 writeToConsole("train " + train.getName() + " deleted.");
                 TrainFacade.getInstance().deleteTrain(train);
-                drawSelectedTrain();
-                updateTrainNames();
-                populateTrainList();
+                updateScreen();
             }
         });
 
@@ -141,8 +136,7 @@ public class Controller {
             String command = codeInput.getText();
             if (command.length() > 0) {
                 writeToConsole(CommandManager.getInstance().execute(command));
-                updateTrainNames();
-                drawSelectedTrain();
+                updateScreen();
             }
         });
 
@@ -217,6 +211,13 @@ public class Controller {
             lines.add(iterator.getNext().getId());
         }
         controlRemoveList.setItems(FXCollections.observableList(lines));
+    }
+
+    private void updateScreen() {
+        updateTrainNames();
+        populateTrainList();
+        populateComboBox();
+        drawSelectedTrain();
     }
 
 }
