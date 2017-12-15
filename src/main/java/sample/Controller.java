@@ -65,6 +65,9 @@ public class Controller {
     @FXML
     private Button viewTrainsButton;
 
+    @FXML
+    private Button deleteTrainButton;
+
     public void initialize() {
         updateTrainNames();
         populateTrainList();
@@ -116,8 +119,24 @@ public class Controller {
             }
         });
 
-        //Button voor commands doorvoeren
+        deleteTrainButton.setOnAction(event -> {
+            String trainName = (String) controlAddList.getSelectionModel().getSelectedItem();
+            if (trainName != null) {
+                ITrain train = TrainFacade.getInstance().getTrain(trainName);
+                if (train != null) {
+                    for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext();) {
+                        TrainFacade.getInstance().removeComponent(iterator.getNext());
+                    }
+                }
+                writeToConsole("train " + train.getName() + " deleted.");
+                TrainFacade.getInstance().deleteTrain(train);
+                drawSelectedTrain();
+                updateTrainNames();
+                populateTrainList();
+            }
+        });
 
+        // Command execute button
         codeSubmit.setOnAction(event -> {
             String command = codeInput.getText();
             if (command.length() > 0) {
@@ -200,5 +219,4 @@ public class Controller {
         controlRemoveList.setItems(FXCollections.observableList(lines));
     }
 
-    
 }

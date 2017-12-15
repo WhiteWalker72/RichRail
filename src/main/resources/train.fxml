@@ -85,7 +85,7 @@
             <Insets right="5.0" top="75.0" />
           </GridPane.margin>
         </TextField>
-        <Button mnemonicParsing="false" text="DeleteTrain" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <Button mnemonicParsing="false" fx:id="deleteTrainButton" text="DeleteTrain" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
           <GridPane.margin>
             <Insets bottom="5.0" left="185.0" fx:id="x1" />
           </GridPane.margin>
