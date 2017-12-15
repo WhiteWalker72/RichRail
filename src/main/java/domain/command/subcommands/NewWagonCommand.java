@@ -18,7 +18,7 @@ public class NewWagonCommand extends Command {
         try {
             typeWagon = args[3].toLowerCase();
         } catch (Exception e) {
-            typeWagon = "BasicComponent";
+            typeWagon = "basic";
         }
 
         int amount = 0;
@@ -40,12 +40,6 @@ public class NewWagonCommand extends Command {
         }
 
         if (typeWagon.equals("basic")) {
-            // Maak een basic wagon
-            return trainFacade.insertComponent(new ComponentBuilder(wagonName).build()) ?
-                    "basic wagon " + wagonName + " created" : "wagon " + wagonName + " already exists.";
-        }
-
-        if (typeWagon == null) {
             // Maak een basic wagon
             return trainFacade.insertComponent(new ComponentBuilder(wagonName).build()) ?
                     "basic wagon " + wagonName + " created" : "wagon " + wagonName + " already exists.";
