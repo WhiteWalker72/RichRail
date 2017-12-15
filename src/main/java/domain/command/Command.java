@@ -1,7 +1,6 @@
 package domain.command;
 
 import domain.train.TrainFacade;
-import domain.train.TrainManager;
 
 public abstract class Command {
 

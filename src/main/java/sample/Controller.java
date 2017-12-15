@@ -98,6 +98,7 @@ public class Controller {
                 ITrain train = TrainFacade.getInstance().getTrain(name);
                 if (train != null) {
                     ObservableList<String> items = controlSelectBox.getItems();
+                    controlSelectBox.setValue(name);
                     if (!items.contains(train.getName()))
                         items.add(name);
                     controlSelectBox.setItems(items);
@@ -143,6 +144,9 @@ public class Controller {
         String selected = (String) controlSelectBox.getSelectionModel().getSelectedItem();
         if (selected != null) {
             drawTrain(selected);
+        } else {
+            imagePane.setContent(null);
+            controlRemoveList.setItems(FXCollections.observableList(new ArrayList<>()));
         }
     }
 
