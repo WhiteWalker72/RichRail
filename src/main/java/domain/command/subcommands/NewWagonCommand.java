@@ -14,12 +14,15 @@ public class NewWagonCommand extends Command {
     @Override
     public String execute(String[] args) {
         String wagonName = args[2].toLowerCase();
-        String typeWagon;
+        String wagonType;
 
         try {
-            typeWagon = args[3].toLowerCase();
+            wagonType = args[3].toLowerCase();
         } catch (Exception e) {
-            typeWagon = "basic";
+            wagonType = "basic";
+        }
+        if (!componentExists(wagonType)) {
+            return couldNotFind("wagontype", wagonType);
         }
 
         int amount = 0;
@@ -40,22 +43,20 @@ public class NewWagonCommand extends Command {
             return "component " + wagonName + " already exists.";
         }
 
-        if (typeWagon.equals("basic")) {
+        if (wagonType.equals("basic")) {
             // Maak een basic wagon
             return trainFacade.insertComponent(new ComponentBuilder(wagonName).build()) ?
                     "basic wagon " + wagonName + " created" : "wagon " + wagonName + " already exists.";
         }
 
-        if (typeWagon.equals("passenger")) {
-
+        if (wagonType.equals("passenger")) {
             // Maak een passagierswagon
             return trainFacade.insertComponent(new ComponentBuilder(wagonName).withPassengers(amount).build()) ?
                     "wagon " + wagonName + " with " + amount + " passengers created" : "wagon " + wagonName + " already exists.";
 
         }
 
-        if (typeWagon.equals("cargo")) {
-
+        if (wagonType.equals("cargo")) {
             // Maak een cargowagon
             return trainFacade.insertComponent(new ComponentBuilder(wagonName).withCargo(amount).build()) ?
                     "wagon " + wagonName + " with " + amount + " amount of cargo created" : "wagon " + wagonName + " already exists.";
@@ -63,4 +64,12 @@ public class NewWagonCommand extends Command {
 
         return "did not succeed in creating a wagon";
     }
+
+    private boolean componentExists(String type) {
+        for (String s : trainFacade.getComponentTypes())
+            if (s.equalsIgnoreCase(type))
+                return true;
+        return false;
+    }
+
 }

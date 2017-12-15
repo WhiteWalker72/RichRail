@@ -56,6 +56,10 @@ public class TrainFacade {
         return componentManager.removeComponent(component);
     }
 
+    public String[] getComponentTypes() {
+        return componentManager.getComponentTypes();
+    }
+
     public static TrainFacade getInstance() {
         if (instance == null)
             instance = new TrainFacade();

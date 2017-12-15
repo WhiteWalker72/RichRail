@@ -13,6 +13,7 @@ public class ComponentManager {
 
     private final List<IComponent> components;
     private final ComponentDAO componentDAO;
+    private final String[] componentTypes = new String[]{"basic", "passenger", "cargo"};
 
     ComponentManager() {
         this.componentDAO = new ComponentDAOMongoImpl();
@@ -56,4 +57,9 @@ public class ComponentManager {
         }
         return  false;
     }
+
+    public String[] getComponentTypes() {
+        return componentTypes;
+    }
+
 }
