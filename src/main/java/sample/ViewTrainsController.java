@@ -56,7 +56,7 @@ public class ViewTrainsController {
         for (ITrain train : TrainFacade.getInstance().getTrains()) {
             HBox hBox = new HBox();
             for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
-                hBox.getChildren().add(DrawUtils.getComponentPane(iterator.getNext()));
+                hBox.getChildren().add(DrawUtils.getComponentBox(iterator.getNext()));
             }
             vBox.getChildren().add(hBox);
         }

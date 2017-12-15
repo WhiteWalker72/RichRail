@@ -1,11 +1,8 @@
 package domain.command.subcommands;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import domain.command.Command;
-import domain.train.ITrain;
 import domain.train.component.IComponent;
 import domain.train.component.sub.PassagerComponent;
-import domain.train.iterator.Iterator;
 import utils.Pair;
 
 public class GetWagonSeatsCommand extends Command {
