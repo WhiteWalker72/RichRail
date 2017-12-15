@@ -28,6 +28,9 @@ import java.util.Observer;
 public class Controller {
 
     @FXML
+    private ComboBox controlAddSelectBox;
+
+    @FXML
     private TextField controlTextfieldAdd;
 
     @FXML
@@ -62,6 +65,8 @@ public class Controller {
 
     public void initialize() {
         updateTrainNames();
+        populateTrainList();
+        populateComboBox();
 
         if (!TrainFacade.getInstance().getTrains().isEmpty()) {
             ITrain firstTrain = TrainFacade.getInstance().getTrains().get(0);
@@ -107,6 +112,7 @@ public class Controller {
             }
 
         }));
+
         //Button voor commands doorvoeren
         codeSubmit.setOnAction(event -> {
             String command = codeInput.getText();
@@ -168,8 +174,14 @@ public class Controller {
         controlSelectBox.setItems(FXCollections.observableList(trainNames));
     }
 
-    private void populateComponentList(){
-            controlAddList.setItems(FXCollections.observableList(TrainFacade.getInstance().getComponentTypes()));
+    private void populateComboBox(){
+        controlAddSelectBox.setItems(FXCollections.observableList(TrainFacade.getInstance().getComponentTypes()));
+    }
+
+    private void populateTrainList(){
+        List<String> trainNames  = new ArrayList<>();
+        TrainFacade.getInstance().getTrains().forEach(iTrain -> trainNames.add(iTrain.getName()));
+        controlAddList.setItems(FXCollections.observableList(trainNames));
     }
 
 }

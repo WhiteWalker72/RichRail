@@ -15,7 +15,7 @@ public class ComponentManager {
 
     private final List<IComponent> components;
     private final ComponentDAO componentDAO;
-    private final List componentTypes = Arrays.asList("basic", "passenger", "cargo");
+    private final List<String> componentTypes = Arrays.asList("basic", "passenger", "cargo");
 
     ComponentManager() {
         this.componentDAO = new ComponentDAOMongoImpl();

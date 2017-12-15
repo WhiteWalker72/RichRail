@@ -56,7 +56,7 @@ public class TrainFacade {
         return componentManager.removeComponent(component);
     }
 
-    public List getComponentTypes() {
+    public List<String> getComponentTypes() {
         return componentManager.getComponentTypes();
     }
 
