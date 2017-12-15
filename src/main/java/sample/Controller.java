@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import utils.DrawUtils;
@@ -24,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.input.KeyEvent;
 import java.util.Observer;
 
 public class Controller {
@@ -68,10 +70,14 @@ public class Controller {
     private Button viewTrainsButton;
 
     @FXML
+
     private TextField controlAddNaam;
 
     @FXML
     private TextField controlAddAmount;
+
+    @FXML
+    private Button deleteTrainButton;
 
     public void initialize() {
         updateTrainNames();
@@ -120,7 +126,30 @@ public class Controller {
 
         }));
 
-        //Button voor commands doorvoeren
+        codeInput.setOnKeyPressed (event ->  {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                codeSubmit.fire();
+            }
+        });
+
+        deleteTrainButton.setOnAction(event -> {
+            String trainName = (String) controlAddList.getSelectionModel().getSelectedItem();
+            if (trainName != null) {
+                ITrain train = TrainFacade.getInstance().getTrain(trainName);
+                if (train != null) {
+                    for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext();) {
+                        TrainFacade.getInstance().removeComponent(iterator.getNext());
+                    }
+                }
+                writeToConsole("train " + train.getName() + " deleted.");
+                TrainFacade.getInstance().deleteTrain(train);
+                drawSelectedTrain();
+                updateTrainNames();
+                populateTrainList();
+            }
+        });
+
+        // Command execute button
         codeSubmit.setOnAction(event -> {
             String command = codeInput.getText();
             if (command.length() > 0) {
@@ -218,5 +247,4 @@ public class Controller {
         controlRemoveList.setItems(FXCollections.observableList(lines));
     }
 
-    
 }
