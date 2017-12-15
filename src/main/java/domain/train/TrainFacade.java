@@ -29,7 +29,7 @@ public class TrainFacade {
     }
 
     public boolean deleteTrain(ITrain train) {
-        return trainManager.updateTrain(train);
+        return trainManager.deleteTrain(train);
     }
 
     public ITrain getTrain(String trainName) {
