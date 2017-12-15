@@ -120,6 +120,7 @@ public class Controller {
                         items.add(name);
                     controlSelectBox.setItems(items);
                 }
+                updateScreen();
             }
         }));
 
