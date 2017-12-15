@@ -16,7 +16,7 @@ public class RemoveFromCommand extends Command {
         String wagonId = args[1];
         String trainName = args[3];
 
-        ITrain train = trainManager.getTrain(trainName);
+        ITrain train = trainFacade.getTrain(trainName);
         if (train == null) {
             return couldNotFind("train", trainName);
         }
@@ -27,7 +27,7 @@ public class RemoveFromCommand extends Command {
         }
 
         train.removeItem(component);
-        trainManager.updateTrain(train);
+        trainFacade.updateTrain(train);
         return "wagon " + wagonId + " removed from train " + trainName;
     }
 

@@ -8,16 +8,13 @@ import java.util.List;
 
 public class TrainManager {
 
-    private static TrainManager instance;
     private final List<ITrain> trains;
     private final TrainDAO trainDAO;
-    private final ComponentManager componentManager;
 
-    private TrainManager() {
+    TrainManager() {
         // Using mongo
         trainDAO = new TrainDAOMongoImpl();
         trains = trainDAO.getAllTrains();
-        componentManager = new ComponentManager();
     }
 
     public boolean validTrainName(String name) {
@@ -53,18 +50,8 @@ public class TrainManager {
         return null;
     }
 
-    public ComponentManager getComponentManager() {
-        return componentManager;
-    }
-
     public List<ITrain> getTrains() {
         return trains;
-    }
-
-    public static TrainManager getInstance() {
-        if (instance == null)
-            instance = new TrainManager();
-        return instance;
     }
 
 }

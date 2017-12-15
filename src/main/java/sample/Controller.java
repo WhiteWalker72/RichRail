@@ -2,6 +2,7 @@ package sample;
 
 import domain.command.CommandManager;
 import domain.train.ITrain;
+import domain.train.TrainFacade;
 import domain.train.TrainManager;
 import domain.train.component.IComponent;
 import domain.train.iterator.Iterator;
@@ -58,8 +59,8 @@ public class Controller {
     public void initialize() {
         updateTrainNames();
 
-        if (!TrainManager.getInstance().getTrains().isEmpty()) {
-            ITrain firstTrain = TrainManager.getInstance().getTrains().get(0);
+        if (!TrainFacade.getInstance().getTrains().isEmpty()) {
+            ITrain firstTrain = TrainFacade.getInstance().getTrains().get(0);
             drawTrain(firstTrain.getName());
             controlSelectBox.setValue(firstTrain.getName());
         }
@@ -67,7 +68,7 @@ public class Controller {
         controlSelectBox.setOnAction((event -> {
             String trainName = (String) controlSelectBox.getValue();
             drawTrain(trainName);
-            ITrain train = TrainManager.getInstance().getTrain(trainName);
+            ITrain train = TrainFacade.getInstance().getTrain(trainName);
 
             if (train != null) {
                 List<String> lines = new ArrayList<>();
@@ -85,7 +86,7 @@ public class Controller {
                 String commandResult = CommandManager.getInstance().execute("new train " + name);
                 writeToConsole(commandResult);
 
-                ITrain train = TrainManager.getInstance().getTrain(name);
+                ITrain train = TrainFacade.getInstance().getTrain(name);
                 if (train != null) {
                     ObservableList<String> items = controlSelectBox.getItems();
                     items.add(name);
@@ -127,7 +128,7 @@ public class Controller {
     }
 
     private void drawTrain(String trainName) {
-        ITrain train = TrainManager.getInstance().getTrain(trainName);
+        ITrain train = TrainFacade.getInstance().getTrain(trainName);
         if (train != null) {
             HBox hBox = new HBox();
             for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
@@ -139,7 +140,7 @@ public class Controller {
 
     private void updateTrainNames() {
         List<String> trainNames = new ArrayList<>();
-        TrainManager.getInstance().getTrains().stream().forEach(train -> trainNames.add(train.getName()));
+        TrainFacade.getInstance().getTrains().stream().forEach(train -> trainNames.add(train.getName()));
         controlSelectBox.setItems(FXCollections.observableList(trainNames));
     }
 

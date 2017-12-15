@@ -12,13 +12,13 @@ public class DeleteTrainCommand extends Command {
     @Override
     public String execute(String[] args) {
         String trainName = args[2];
-        ITrain train = trainManager.getTrain(trainName);
+        ITrain train = trainFacade.getTrain(trainName);
 
         if (train == null) {
             return couldNotFind("train", trainName);
         }
 
-        if (trainManager.deleteTrain(train)) {
+        if (trainFacade.deleteTrain(train)) {
             return "train " + trainName + " deleted";
         }
         return "couldn't delete train " + trainName;

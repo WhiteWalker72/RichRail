@@ -1,5 +1,6 @@
 package domain.command;
 
+import domain.train.TrainFacade;
 import domain.train.TrainManager;
 
 public abstract class Command {
@@ -7,13 +8,13 @@ public abstract class Command {
     private final String identifier;
     private final int minimalLength;
     private final String[] args;
-    protected final TrainManager trainManager;
+    protected final TrainFacade trainFacade;
 
     public Command(String identifier, int minimalLength, String... args) {
         this.identifier = identifier;
         this.minimalLength = minimalLength;
         this.args = args;
-        trainManager = TrainManager.getInstance();
+        trainFacade = TrainFacade.getInstance();
     }
 
     public Command(String identifier, String... args) {

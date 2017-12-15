@@ -24,7 +24,7 @@ public class ComponentManager {
             if (component.getId().equalsIgnoreCase(id))
                 return new Pair<>(null, component);
 
-        for (ITrain train : TrainManager.getInstance().getTrains()) {
+        for (ITrain train : TrainFacade.getInstance().getTrains()) {
             for(Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext();) {
                 IComponent component = iterator.getNext();
                 if (component.getId().equalsIgnoreCase(id)) {

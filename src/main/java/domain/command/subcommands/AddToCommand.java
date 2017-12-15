@@ -14,17 +14,17 @@ public class AddToCommand extends Command {
     @Override
     public String execute(String[] args) {
         String trainName = args[3];
-        ITrain targetTrain = trainManager.getTrain(trainName);
+        ITrain targetTrain = trainFacade.getTrain(trainName);
         if (targetTrain == null) {
             return couldNotFind("train", trainName);
         }
 
-        if (targetTrain.getUsedPullingPower() + 1 >= targetTrain.getTotalPullingPower()) {
+        if (targetTrain.getUsedPullingPower() >= targetTrain.getTotalPullingPower()) {
             return targetTrain.getName() + " reached it's max pulling power";
         }
         String wagonId = args[1];
 
-        Pair<String, IComponent> componentPair = trainManager.getComponentManager().getComponentPair(wagonId);
+        Pair<String, IComponent> componentPair = trainFacade.getComponentPair(wagonId);
         if (componentPair == null) {
             return "wagon '" + wagonId + "' does not exist";
         }
@@ -32,7 +32,7 @@ public class AddToCommand extends Command {
 
         // Remove from the train that is using the component
         if (componentPair.getLeftValue() != null) {
-            ITrain train = trainManager.getTrain(componentPair.getLeftValue());
+            ITrain train = trainFacade.getTrain(componentPair.getLeftValue());
             if (train != null) {
                 train.removeItem(component);
                 addToTargetTrain(targetTrain, component);
@@ -40,7 +40,7 @@ public class AddToCommand extends Command {
             }
             return "train wasn't found..";
         } else {
-            trainManager.getComponentManager().removeComponent(component);
+            trainFacade.removeComponent(component);
         }
         addToTargetTrain(targetTrain, component);
 
@@ -49,7 +49,7 @@ public class AddToCommand extends Command {
 
     private void addToTargetTrain(ITrain targetTrain, IComponent component) {
         targetTrain.addItem(component);
-        trainManager.updateTrain(targetTrain);
+        trainFacade.updateTrain(targetTrain);
     }
 
 }

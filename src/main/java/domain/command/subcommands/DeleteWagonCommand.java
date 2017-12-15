@@ -17,8 +17,7 @@ public class DeleteWagonCommand extends Command {
     public String execute(String[] args) {
         String wagonName = args[2];
 
-        TrainManager trainManager = TrainManager.getInstance();
-        Pair<String, IComponent> pair = trainManager.getComponentManager().getComponentPair(wagonName);
+        Pair<String, IComponent> pair = trainFacade.getComponentPair(wagonName);
 
         if (pair == null) {
             return couldNotFind("wagon", wagonName);
@@ -26,21 +25,21 @@ public class DeleteWagonCommand extends Command {
 
         if (pair.getLeftValue() != null) {
             String trainName = pair.getLeftValue();
-            ITrain train = trainManager.getTrain(trainName);
+            ITrain train = trainFacade.getTrain(trainName);
 
             IComponent component = pair.getRightValue();
             train.removeItem(train.getComponent(wagonName));
 
             train.removeItem(component);
 
-            trainManager.updateTrain(train);
+            trainFacade.updateTrain(train);
 
             return "wagon " + wagonName + " from train " + trainName + " deleted";
         }
 
         IComponent component = pair.getRightValue();
 
-        trainManager.getComponentManager().removeComponent(component);
+        trainFacade.removeComponent(component);
 
         return "wagon " + wagonName + " deleted";
     }

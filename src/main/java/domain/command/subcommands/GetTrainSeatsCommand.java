@@ -17,7 +17,7 @@ public class GetTrainSeatsCommand extends Command {
         int totalNumberOfSeats = 0;
         String trainName = args[2];
 
-        ITrain train = trainManager.getTrain(trainName);
+        ITrain train = trainFacade.getTrain(trainName);
 
         if (train == null) {
             return couldNotFind("train", trainName);

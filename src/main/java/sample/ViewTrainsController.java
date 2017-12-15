@@ -1,6 +1,7 @@
 package sample;
 
 import domain.train.ITrain;
+import domain.train.TrainFacade;
 import domain.train.TrainManager;
 import domain.train.component.IComponent;
 import domain.train.iterator.Iterator;
@@ -52,7 +53,7 @@ public class ViewTrainsController {
     private void drawTrains() {
         VBox vBox = new VBox();
         vBox.setSpacing(20);
-        for (ITrain train : TrainManager.getInstance().getTrains()) {
+        for (ITrain train : TrainFacade.getInstance().getTrains()) {
             HBox hBox = new HBox();
             for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
                 hBox.getChildren().add(DrawUtils.getComponentPane(iterator.getNext()));

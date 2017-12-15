@@ -19,7 +19,7 @@ public class GetWagonSeatsCommand extends Command {
         String nameWagon = args[2];
         int numSeatsWagon = 0;
 
-        Pair<String, IComponent> pair = trainManager.getComponentManager().getComponentPair(nameWagon);
+        Pair<String, IComponent> pair = trainFacade.getComponentPair(nameWagon);
 
         if (pair == null) {
             return couldNotFind("wagon", nameWagon);

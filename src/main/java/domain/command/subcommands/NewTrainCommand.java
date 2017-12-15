@@ -14,7 +14,7 @@ public class NewTrainCommand extends Command {
     @Override
     public String execute(String[] args) {
         String trainName = args[2].toLowerCase();
-        if (!trainManager.validTrainName(trainName)) {
+        if (!trainFacade.validTrainName(trainName)) {
             return "Invalid name for " + trainName + ".";
         }
 
@@ -27,10 +27,10 @@ public class NewTrainCommand extends Command {
             power = powerOption.visit(() -> 10, x -> x);
         }
 
-        if (trainManager.getComponentManager().getComponentPair(trainName) != null) {
+        if (trainFacade.getComponentPair(trainName) != null) {
             return "component " + trainName + " already exists.";
         }
-        return trainManager.createTrain(trainName, new ComponentBuilder(trainName).withPullingPower(power).build()) ?
+        return trainFacade.createTrain(trainName, new ComponentBuilder(trainName).withPullingPower(power).build()) ?
                 "train " + trainName + " created" : "train " + trainName + " already exists.";
     }
 

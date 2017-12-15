@@ -31,24 +31,24 @@ public class NewWagonCommand extends Command {
             }
         }
 
-        if (!trainManager.getComponentManager().validComponentId(wagonName)) {
+        if (!trainFacade.validComponentId(wagonName)) {
             return "Invalid name for " + wagonName + ".";
         }
 
-        if (trainManager.getComponentManager().getComponentPair(wagonName) != null) {
+        if (trainFacade.getComponentPair(wagonName) != null) {
             return "component " + wagonName + " already exists.";
         }
 
         if (typeWagon.equals("basic")) {
             // Maak een basic wagon
-            return trainManager.getComponentManager().insertComponent(new ComponentBuilder(wagonName).build()) ?
+            return trainFacade.insertComponent(new ComponentBuilder(wagonName).build()) ?
                     "basic wagon " + wagonName + " created" : "wagon " + wagonName + " already exists.";
         }
 
         if (typeWagon.equals("passenger")) {
 
             // Maak een passagierswagon
-            return trainManager.getComponentManager().insertComponent(new ComponentBuilder(wagonName).withPassengers(amount).build()) ?
+            return trainFacade.insertComponent(new ComponentBuilder(wagonName).withPassengers(amount).build()) ?
                     "wagon " + wagonName + " with " + amount + " passengers created" : "wagon " + wagonName + " already exists.";
 
         }
@@ -56,7 +56,7 @@ public class NewWagonCommand extends Command {
         if (typeWagon.equals("cargo")) {
 
             // Maak een cargowagon
-            return trainManager.getComponentManager().insertComponent(new ComponentBuilder(wagonName).withCargo(amount).build()) ?
+            return trainFacade.insertComponent(new ComponentBuilder(wagonName).withCargo(amount).build()) ?
                     "wagon " + wagonName + " with " + amount + " amount of cargo created" : "wagon " + wagonName + " already exists.";
         }
 
