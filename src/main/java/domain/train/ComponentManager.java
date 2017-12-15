@@ -6,6 +6,8 @@ import model.ComponentDAO;
 import model.ComponentDAOMongoImpl;
 import utils.Pair;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // Has all components that aren't connected to any train
@@ -13,7 +15,7 @@ public class ComponentManager {
 
     private final List<IComponent> components;
     private final ComponentDAO componentDAO;
-    private final String[] componentTypes = new String[]{"basic", "passenger", "cargo"};
+    private final List componentTypes = Arrays.asList("basic", "passenger", "cargo");
 
     ComponentManager() {
         this.componentDAO = new ComponentDAOMongoImpl();
@@ -58,7 +60,7 @@ public class ComponentManager {
         return  false;
     }
 
-    public String[] getComponentTypes() {
+    public List getComponentTypes() {
         return componentTypes;
     }
 

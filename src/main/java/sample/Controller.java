@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 public class Controller {
 
@@ -174,4 +175,8 @@ public class Controller {
         controlRemoveList.setItems(FXCollections.observableList(lines));
     }
 
+    private void populateComponentList () {
+        controlAddList.setItems(FXCollections.observableList(TrainFacade.getInstance().getComponentTypes()));
+    }
+    
 }
