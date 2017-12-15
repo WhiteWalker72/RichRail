@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 public class Controller {
 
@@ -165,6 +166,10 @@ public class Controller {
         List<String> trainNames = new ArrayList<>();
         TrainFacade.getInstance().getTrains().stream().forEach(train -> trainNames.add(train.getName()));
         controlSelectBox.setItems(FXCollections.observableList(trainNames));
+    }
+
+    private void populateComponentList(){
+            controlAddList.setItems(FXCollections.observableList(TrainFacade.getInstance().getComponentTypes()));
     }
 
 }
