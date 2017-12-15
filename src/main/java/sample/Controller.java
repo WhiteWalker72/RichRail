@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import utils.DrawUtils;
 
+import javax.xml.soap.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,6 +27,9 @@ import java.util.List;
 import java.util.Observer;
 
 public class Controller {
+
+    @FXML
+    private Button controlAddButton;
 
     @FXML
     private ComboBox controlAddSelectBox;
@@ -63,10 +67,18 @@ public class Controller {
     @FXML
     private Button viewTrainsButton;
 
+    @FXML
+    private TextField controlAddNaam;
+
+    @FXML
+    private TextField controlAddAmount;
+
     public void initialize() {
         updateTrainNames();
         populateTrainList();
         populateComboBox();
+        controlAddAmount.setPromptText("Inhoud");
+        controlAddNaam.setPromptText("Naam");
 
         if (!TrainFacade.getInstance().getTrains().isEmpty()) {
             ITrain firstTrain = TrainFacade.getInstance().getTrains().get(0);
@@ -133,6 +145,21 @@ public class Controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        });
+
+        controlAddButton.setOnAction(event -> {
+            String name = controlAddNaam.getText();
+
+            if(!TrainFacade.getInstance().validTrainName(name)){
+                writeToConsole("Voer een geldige naam in.");
+            } else {
+
+                writeToConsole(CommandManager.getInstance().execute("new wagon " + name + " " + (String) controlAddSelectBox.getValue() + " " + controlAddAmount.getText()));
+                writeToConsole(CommandManager.getInstance().execute("add " + name + " to " + (String) controlAddList.getSelectionModel().getSelectedItem()));
+            }
+
+            drawTrain((String) controlAddList.getSelectionModel().getSelectedItem());
+
         });
     }
 
