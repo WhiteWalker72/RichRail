@@ -132,7 +132,7 @@ public class Controller {
         if (train != null) {
             HBox hBox = new HBox();
             for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
-                hBox.getChildren().add(DrawUtils.getComponentPane(iterator.getNext()));
+                hBox.getChildren().add(DrawUtils.getComponentBox(iterator.getNext()));
             }
             imagePane.setContent(hBox);
         }

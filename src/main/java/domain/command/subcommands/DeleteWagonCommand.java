@@ -28,17 +28,13 @@ public class DeleteWagonCommand extends Command {
             ITrain train = trainFacade.getTrain(trainName);
 
             IComponent component = pair.getRightValue();
-            train.removeItem(train.getComponent(wagonName));
-
             train.removeItem(component);
-
             trainFacade.updateTrain(train);
 
             return "wagon " + wagonName + " from train " + trainName + " deleted";
         }
 
         IComponent component = pair.getRightValue();
-
         trainFacade.removeComponent(component);
 
         return "wagon " + wagonName + " deleted";
