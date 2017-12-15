@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -19,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" fx:id="mainPane" maxHeight="576.0" maxWidth="1024.0" minHeight="576.0" minWidth="1024.0" prefHeight="576.0" prefWidth="1024.0" snapToPixel="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.Controller">
+<AnchorPane id="AnchorPane" fx:id="mainPane" maxHeight="576.0" maxWidth="1024.0" minHeight="576.0" minWidth="1024.0" prefHeight="576.0" prefWidth="1024.0" snapToPixel="true" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <children>
     <FlowPane id="flowPane" fx:id="codePane" layoutX="761.0" layoutY="186.0" minHeight="384.0" prefHeight="384.0" prefWidth="256.0" style="">
       <children>
@@ -55,7 +50,7 @@
             <Insets bottom="5.0" top="5.0" />
           </GridPane.margin>
         </ListView>
-        <TextField id="controlAddPass" fx:id="controlAddNaam" maxWidth="180.0" prefWidth="180.0" text="" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+        <TextField id="controlAddPass" fx:id="controlAddNaam" maxWidth="180.0" prefWidth="180.0" promptText="Name Wagon" text="" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
           <GridPane.margin>
             <Insets right="5.0" top="40.0" />
           </GridPane.margin>
@@ -80,7 +75,7 @@
             <Insets left="185.0" top="5.0" />
           </GridPane.margin>
         </ComboBox>
-        <TextField id="controlAddPass" fx:id="controlAddAmount" maxWidth="180.0" prefWidth="180.0" text="" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+        <TextField id="controlAddPass" fx:id="controlAddAmount" maxWidth="180.0" prefWidth="180.0" promptText="Amount" text="" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
           <GridPane.margin>
             <Insets right="5.0" top="75.0" />
           </GridPane.margin>
