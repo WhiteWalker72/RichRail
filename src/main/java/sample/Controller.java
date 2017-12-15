@@ -89,7 +89,8 @@ public class Controller {
                 ITrain train = TrainFacade.getInstance().getTrain(name);
                 if (train != null) {
                     ObservableList<String> items = controlSelectBox.getItems();
-                    items.add(name);
+                    if (!items.contains(train.getName()))
+                        items.add(name);
                     controlSelectBox.setItems(items);
                 }
             }
@@ -100,6 +101,7 @@ public class Controller {
             if (command.length() > 0) {
                 writeToConsole(CommandManager.getInstance().execute(command));
                 updateTrainNames();
+                drawSelectedTrain();
             }
         });
 
@@ -125,6 +127,13 @@ public class Controller {
         String consoleText = codeOutput.getText();
         consoleText += text + "\n";
         codeOutput.setText(consoleText);
+    }
+
+    private void drawSelectedTrain() {
+        String selected = (String) controlSelectBox.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            drawTrain(selected);
+        }
     }
 
     private void drawTrain(String trainName) {

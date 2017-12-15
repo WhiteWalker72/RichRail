@@ -33,13 +33,13 @@ public class DrawUtils {
 
             Font attributeFont = Font.font("Verdana", FontWeight.BOLD, 10);
             if (component instanceof CargoComponent) {
-                addToVBox(vBox, "cargo :" + ((CargoComponent) component).getMaxCargo(), attributeFont);
+                addToVBox(vBox, "cargo: " + ((CargoComponent) component).getMaxCargo(), attributeFont);
             }
             if (component instanceof PassagerComponent) {
-                addToVBox(vBox, "seats :" + ((PassagerComponent) component).getSeats(), attributeFont);
+                addToVBox(vBox, "seats: " + ((PassagerComponent) component).getSeats(), attributeFont);
             }
             if (component instanceof LocomotiveComponent) {
-                addToVBox(vBox, "power :" + ((LocomotiveComponent) component).getPullingPower(), attributeFont);
+                addToVBox(vBox, "power: " + ((LocomotiveComponent) component).getPullingPower(), attributeFont);
             }
 
             return vBox;

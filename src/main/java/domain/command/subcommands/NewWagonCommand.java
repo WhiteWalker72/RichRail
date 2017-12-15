@@ -6,6 +6,7 @@ import utils.MathUtils;
 import utils.option.IOption;
 
 public class NewWagonCommand extends Command {
+
     public NewWagonCommand() {
         super("new wagon", 3, "new", "wagon", "name", "type", "amount");
     }
