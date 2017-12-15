@@ -37,12 +37,12 @@
         </Button>
         <Button fx:id="viewTrainsButton" mnemonicParsing="false" prefWidth="180.0" text="View all trains" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
           <GridPane.margin>
-            <Insets bottom="35.0" top="5.0" />
+            <Insets bottom="35.0" left="80.0" top="5.0" />
           </GridPane.margin>
         </Button>
         <ListView id="controlListRemove" fx:id="controlRemoveList" maxWidth="180.0" prefHeight="192.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <GridPane.margin>
-            <Insets bottom="5.0" />
+            <Insets bottom="5.0" left="80.0" />
           </GridPane.margin>
         </ListView>
         <ListView fx:id="controlAddList" maxWidth="180.0" prefHeight="192.0" prefWidth="180.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -62,12 +62,12 @@
         </Button>
         <Button fx:id="controlRemoveButton" mnemonicParsing="false" text="Delete" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
           <GridPane.margin>
-            <Insets bottom="5.0" left="185.0" fx:id="x1" />
+            <Insets bottom="5.0" left="280.0" fx:id="x1" />
           </GridPane.margin>
         </Button>
         <ComboBox fx:id="controlSelectBox" prefWidth="180.0" promptText="Select Train" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
           <GridPane.margin>
-            <Insets bottom="5.0" />
+            <Insets bottom="5.0" left="80.0" />
           </GridPane.margin>
         </ComboBox>
         <ComboBox id="controlAddCombobox" fx:id="controlAddSelectBox" prefWidth="180.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
