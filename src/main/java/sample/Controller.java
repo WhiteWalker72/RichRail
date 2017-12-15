@@ -179,7 +179,7 @@ public class Controller {
         controlAddButton.setOnAction(event -> {
             String name = controlAddNaam.getText();
 
-            if(!TrainFacade.getInstance().validTrainName(name)){
+            if(!TrainFacade.getInstance().validTrainName(name.toLowerCase())){
                 writeToConsole("Voer een geldige naam in.");
             } else {
 
