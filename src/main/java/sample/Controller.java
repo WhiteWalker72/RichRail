@@ -66,6 +66,7 @@ public class Controller {
             ITrain firstTrain = TrainFacade.getInstance().getTrains().get(0);
             drawTrain(firstTrain.getName());
             controlSelectBox.setValue(firstTrain.getName());
+            updateComponentRemoveList(firstTrain);
         }
         controlRemoveButton.setOnAction(event -> {
             String commandResult = CommandManager.getInstance().execute("delete wagon " + controlRemoveList.getSelectionModel().getSelectedItem());
@@ -79,13 +80,7 @@ public class Controller {
             drawTrain(trainName);
             ITrain train = TrainFacade.getInstance().getTrain(trainName);
 
-            if (train != null) {
-                List<String> lines = new ArrayList<>();
-                for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
-                    lines.add(iterator.getNext().getId());
-                }
-                controlRemoveList.setItems(FXCollections.observableList(lines));
-            }
+            updateComponentRemoveList(train);
         }));
 
         controlTextfieldButton.setOnAction((event -> {
@@ -165,6 +160,18 @@ public class Controller {
         List<String> trainNames = new ArrayList<>();
         TrainFacade.getInstance().getTrains().stream().forEach(train -> trainNames.add(train.getName()));
         controlSelectBox.setItems(FXCollections.observableList(trainNames));
+    }
+
+    private void updateComponentRemoveList(ITrain train) {
+        if (train == null) {
+            controlRemoveList.setItems(FXCollections.observableList(new ArrayList<>()));
+            return;
+        }
+        List<String> lines = new ArrayList<>();
+        for (Iterator<IComponent> iterator = train.getIterator(); iterator.hasNext(); ) {
+            lines.add(iterator.getNext().getId());
+        }
+        controlRemoveList.setItems(FXCollections.observableList(lines));
     }
 
 }
