@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -13,13 +14,19 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="mainPane" maxHeight="576.0" maxWidth="1024.0" minHeight="576.0" minWidth="1024.0" prefHeight="576.0" prefWidth="1024.0" snapToPixel="true" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <children>
     <FlowPane id="flowPane" fx:id="codePane" layoutX="761.0" layoutY="186.0" minHeight="384.0" prefHeight="384.0" prefWidth="256.0" style="">
       <children>
-        <TextArea id="" fx:id="codeOutput" prefHeight="358.0" prefWidth="256.0" wrapText="true" />
-        <TextField fx:id="codeInput" prefHeight="26.0" prefWidth="180.0" />
+            <Label text="Command Line">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+        <TextArea id="" fx:id="codeOutput" prefHeight="332.0" prefWidth="256.0" wrapText="true" />
+        <TextField fx:id="codeInput" prefHeight="0.0" prefWidth="180.0" />
         <Button fx:id="codeSubmit" contentDisplay="LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" text="Submit" />
       </children>
     </FlowPane>
@@ -27,12 +34,12 @@
       <children>
         <TextField fx:id="controlTextfieldAdd" alignment="CENTER_LEFT" maxWidth="180.0" prefWidth="180.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="TOP">
           <GridPane.margin>
-            <Insets top="5.0" />
+            <Insets top="25.0" />
           </GridPane.margin>
         </TextField>
         <Button fx:id="controlTextfieldButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" text="New Train" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="TOP">
           <GridPane.margin>
-            <Insets top="37.0" />
+            <Insets top="56.0" />
           </GridPane.margin>
         </Button>
         <Button fx:id="viewTrainsButton" mnemonicParsing="false" prefWidth="180.0" text="View all trains" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM">
@@ -55,7 +62,7 @@
             <Insets right="5.0" top="40.0" />
           </GridPane.margin>
         </TextField>
-        <Button fx:id="controlAddButton" mnemonicParsing="false" prefWidth="69.0" text="Add" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <Button fx:id="controlAddButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Add Wagon" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
           <GridPane.margin>
             <Insets bottom="5.0" right="5.0" />
           </GridPane.margin>
@@ -80,11 +87,38 @@
             <Insets right="5.0" top="75.0" />
           </GridPane.margin>
         </TextField>
-        <Button mnemonicParsing="false" fx:id="deleteTrainButton" text="DeleteTrain" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <Button fx:id="deleteTrainButton" mnemonicParsing="false" text="Delete Train" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
           <GridPane.margin>
             <Insets bottom="5.0" left="185.0" fx:id="x1" />
           </GridPane.margin>
         </Button>
+            <Label prefHeight="21.0" prefWidth="203.0" text="Add a new wagon to a train">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets top="175.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Create new train">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="170.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="21.0" prefWidth="181.0" text="View train components" textAlignment="JUSTIFY" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" top="40.0" />
+               </GridPane.margin>
+            </Label>
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
