@@ -3,7 +3,6 @@ package sample;
 import domain.command.CommandManager;
 import domain.train.ITrain;
 import domain.train.TrainFacade;
-import domain.train.TrainManager;
 import domain.train.component.IComponent;
 import domain.train.iterator.Iterator;
 import javafx.collections.FXCollections;
@@ -18,15 +17,12 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import utils.DrawUtils;
 
-import javax.xml.soap.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.input.KeyEvent;
-import java.util.Observer;
 
 public class Controller {
 
@@ -173,17 +169,19 @@ public class Controller {
 
         controlAddButton.setOnAction(event -> {
             String name = controlAddNaam.getText();
-
-            if(!TrainFacade.getInstance().validTrainName(name.toLowerCase())){
-                writeToConsole("Voer een geldige naam in.");
-            } else {
-
-                writeToConsole(CommandManager.getInstance().execute("new wagon " + name + " " + (String) controlAddSelectBox.getValue() + " " + controlAddAmount.getText()));
-                writeToConsole(CommandManager.getInstance().execute("add " + name + " to " + (String) controlAddList.getSelectionModel().getSelectedItem()));
+            if (name.length() > 0) {
+                if(!TrainFacade.getInstance().validTrainName(name.toLowerCase())){
+                    writeToConsole("Invalid train name.");
+                } else {
+                    String newWagonResult = CommandManager.getInstance().execute("new wagon " + name + " " + (String) controlAddSelectBox.getValue() + " " + controlAddAmount.getText());
+                    writeToConsole(newWagonResult);
+                    if (newWagonResult.contains("created")) {
+                        writeToConsole(CommandManager.getInstance().execute("add " + name + " to " + (String) controlAddList.getSelectionModel().getSelectedItem()));
+                    }
+                }
+                drawTrain((String) controlAddList.getSelectionModel().getSelectedItem());
+                updateScreen();
             }
-
-            drawTrain((String) controlAddList.getSelectionModel().getSelectedItem());
-
         });
     }
 
