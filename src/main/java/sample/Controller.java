@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Controller {
 
@@ -170,13 +171,13 @@ public class Controller {
         controlAddButton.setOnAction(event -> {
             String name = controlAddNaam.getText();
             if (name.length() > 0) {
-                if(!TrainFacade.getInstance().validTrainName(name.toLowerCase())){
+                if(!TrainFacade.getInstance().validTrainName(name.toLowerCase())) {
                     writeToConsole("Invalid train name.");
                 } else {
-                    String newWagonResult = CommandManager.getInstance().execute("new wagon " + name + " " + (String) controlAddSelectBox.getValue() + " " + controlAddAmount.getText());
+                    String newWagonResult = CommandManager.getInstance().execute("new wagon " + name + " " + controlAddSelectBox.getValue() + " " + controlAddAmount.getText());
                     writeToConsole(newWagonResult);
                     if (newWagonResult.contains("created")) {
-                        writeToConsole(CommandManager.getInstance().execute("add " + name + " to " + (String) controlAddList.getSelectionModel().getSelectedItem()));
+                        writeToConsole(CommandManager.getInstance().execute("add " + name + " to " + controlAddList.getSelectionModel().getSelectedItem()));
                     }
                 }
                 drawTrain((String) controlAddList.getSelectionModel().getSelectedItem());
@@ -213,8 +214,7 @@ public class Controller {
     }
 
     private void updateTrainNames() {
-        List<String> trainNames = new ArrayList<>();
-        TrainFacade.getInstance().getTrains().stream().forEach(train -> trainNames.add(train.getName()));
+        List<String> trainNames = TrainFacade.getInstance().getTrains().stream().map(train -> train.getName()).collect(Collectors.toList());
         controlSelectBox.setItems(FXCollections.observableList(trainNames));
     }
 
@@ -223,8 +223,7 @@ public class Controller {
     }
 
     private void populateTrainList() {
-        List<String> trainNames = new ArrayList<>();
-        TrainFacade.getInstance().getTrains().forEach(iTrain -> trainNames.add(iTrain.getName()));
+        List<String> trainNames = TrainFacade.getInstance().getTrains().stream().map(train -> train.getName()).collect(Collectors.toList());
         controlAddList.setItems(FXCollections.observableList(trainNames));
     }
 
