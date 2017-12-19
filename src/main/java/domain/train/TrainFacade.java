@@ -1,6 +1,7 @@
 package domain.train;
 
 import domain.train.component.IComponent;
+import domain.train.observer.IObserver;
 import utils.Pair;
 
 import java.util.List;
@@ -58,6 +59,22 @@ public class TrainFacade {
 
     public List<String> getComponentTypes() {
         return componentManager.getComponentTypes();
+    }
+
+    public void registerTrainObserver(IObserver observer) {
+        trainManager.register(observer);
+    }
+
+    public void unregisterTrainObserver(IObserver observer) {
+        trainManager.unregister(observer);
+    }
+
+    public void registerComponentObserver(IObserver observer) {
+        componentManager.register(observer);
+    }
+
+    public void unregisterComponentObserver(IObserver observer) {
+        componentManager.unregister(observer);
     }
 
     public static TrainFacade getInstance() {

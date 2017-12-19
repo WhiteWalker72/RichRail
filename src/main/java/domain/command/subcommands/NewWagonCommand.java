@@ -2,8 +2,6 @@ package domain.command.subcommands;
 
 import domain.command.Command;
 import domain.train.component.ComponentBuilder;
-import utils.MathUtils;
-import utils.option.IOption;
 
 public class NewWagonCommand extends Command {
 
@@ -42,24 +40,27 @@ public class NewWagonCommand extends Command {
         if (trainFacade.getComponentPair(wagonName) != null) {
             return "component " + wagonName + " already exists.";
         }
+        String alreadyExists = "wagon " + wagonName + " already exists.";
 
         if (wagonType.equals("basic")) {
-            // Maak een basic wagon
             return trainFacade.insertComponent(new ComponentBuilder(wagonName).build()) ?
-                    "basic wagon " + wagonName + " created" : "wagon " + wagonName + " already exists.";
+                    "basic wagon " + wagonName + " created" : alreadyExists;
         }
 
         if (wagonType.equals("passenger")) {
-            // Maak een passagierswagon
             return trainFacade.insertComponent(new ComponentBuilder(wagonName).withPassengers(amount).build()) ?
-                    "wagon " + wagonName + " with " + amount + " passengers created" : "wagon " + wagonName + " already exists.";
+                    "wagon " + wagonName + " with " + amount + " passengers created" : alreadyExists;
 
         }
 
         if (wagonType.equals("cargo")) {
-            // Maak een cargowagon
             return trainFacade.insertComponent(new ComponentBuilder(wagonName).withCargo(amount).build()) ?
-                    "wagon " + wagonName + " with " + amount + " amount of cargo created" : "wagon " + wagonName + " already exists.";
+                    "wagon " + wagonName + " with " + amount + " amount of cargo created" : alreadyExists;
+        }
+
+        if (wagonType.equals("locomotive")) {
+            return trainFacade.insertComponent(new ComponentBuilder(wagonName).withPullingPower(amount).build()) ?
+                    "wagon " + wagonName + " with " + amount + " pulling power created" : alreadyExists;
         }
 
         return "did not succeed in creating a wagon";

@@ -2,7 +2,6 @@ package domain.command.subcommands;
 
 import domain.command.Command;
 import domain.train.ITrain;
-import domain.train.Train;
 import domain.train.component.IComponent;
 
 public class RemoveFromCommand extends Command {
@@ -28,6 +27,7 @@ public class RemoveFromCommand extends Command {
 
         train.removeItem(component);
         trainFacade.updateTrain(train);
+        trainFacade.insertComponent(component);
         return "wagon " + wagonId + " removed from train " + trainName;
     }
 

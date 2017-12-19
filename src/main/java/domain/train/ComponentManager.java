@@ -2,20 +2,24 @@ package domain.train;
 
 import domain.train.component.IComponent;
 import domain.train.iterator.Iterator;
+import domain.train.observer.IObserver;
+import domain.train.observer.ISubject;
 import model.ComponentDAO;
 import model.ComponentDAOMongoImpl;
 import utils.Pair;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 // Has all components that aren't connected to any train
-public class ComponentManager {
+public class ComponentManager implements ISubject {
 
     private final List<IComponent> components;
     private final ComponentDAO componentDAO;
-    private final List<String> componentTypes = Arrays.asList("basic", "passenger", "cargo");
+    private final Set<IObserver> observers = new HashSet<>();
+    private final List<String> componentTypes = Arrays.asList("basic", "passenger", "cargo", "locomotive");
 
     ComponentManager() {
         this.componentDAO = new ComponentDAOMongoImpl();
@@ -62,6 +66,21 @@ public class ComponentManager {
 
     public List getComponentTypes() {
         return componentTypes;
+    }
+
+    @Override
+    public void register(IObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(IObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        observers.forEach(observer -> observer.update());
     }
 
 }

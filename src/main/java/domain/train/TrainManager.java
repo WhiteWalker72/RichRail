@@ -1,14 +1,19 @@
 package domain.train;
 
 import domain.train.component.IComponent;
+import domain.train.observer.IObserver;
+import domain.train.observer.ISubject;
 import model.TrainDAO;
 import model.TrainDAOMongoImpl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class TrainManager {
+public class TrainManager implements ISubject {
 
     private final List<ITrain> trains;
+    private final Set<IObserver> observers = new HashSet<>();
     private final TrainDAO trainDAO;
 
     TrainManager() {
@@ -27,18 +32,28 @@ public class TrainManager {
         if (getTrain(name) != null)
             return false;
         ITrain train = new Train(name, component);
-        trains.add(train);
-        return trainDAO.insertTrain(train);
+        boolean inserted = trainDAO.insertTrain(train);
+
+        if (inserted) {
+            trains.add(train);
+            notifyObservers();
+        }
+        return inserted;
     }
 
     public boolean updateTrain(ITrain train) {
-        return trainDAO.updateTrain(train);
+        boolean updated = trainDAO.updateTrain(train);
+        if (updated) {
+            notifyObservers();
+        }
+        return updated;
     }
 
     public boolean deleteTrain(ITrain train) {
         boolean deleted = trainDAO.deleteTrain(train);
         if (deleted) {
             trains.remove(train);
+            notifyObservers();
         }
         return deleted;
     }
@@ -52,6 +67,21 @@ public class TrainManager {
 
     public List<ITrain> getTrains() {
         return trains;
+    }
+
+    @Override
+    public void register(IObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregister(IObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        observers.forEach(observer -> observer.update());
     }
 
 }

@@ -1,10 +1,10 @@
-package sample;
+package controller;
 
 import domain.train.ITrain;
 import domain.train.TrainFacade;
-import domain.train.TrainManager;
 import domain.train.component.IComponent;
 import domain.train.iterator.Iterator;
+import domain.train.observer.IObserver;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class ViewTrainsController {
+public class ViewTrainsController implements IObserver {
 
     @FXML
     private ScrollPane trainPane;
@@ -30,15 +30,18 @@ public class ViewTrainsController {
     @FXML
     private Button backButton;
 
+    public ViewTrainsController() {
+        TrainFacade.getInstance().registerTrainObserver(this);
+    }
+
     public void initialize() {
         drawTrains();
 
         backButton.setOnAction(event -> {
             try {
-                ((Stage) backButton.getScene().getWindow()).close();
                 URL url = new File("src/main/resources/train.fxml").toURI().toURL();
                 Parent root = FXMLLoader.load(url);
-                Stage stage = new Stage();
+                Stage stage = MainController.getStage();
                 stage.setTitle("Trains");
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -61,6 +64,11 @@ public class ViewTrainsController {
             vBox.getChildren().add(hBox);
         }
         trainPane.setContent(vBox);
+    }
+
+    @Override
+    public void update() {
+        drawTrains();
     }
 
 }

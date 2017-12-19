@@ -1,4 +1,4 @@
-package sample;
+package controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        primaryStage = MainController.getStage();
         URL url = new File("src/main/resources/train.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("RichRail");

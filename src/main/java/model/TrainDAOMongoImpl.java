@@ -60,6 +60,7 @@ public class TrainDAOMongoImpl implements TrainDAO {
         TrainDocManager manager = getTrainDocManager(train.getName());
         if (manager == null)
             return false;
+        trainMap.remove(train.getName());
         getTrainCollection().findOneAndDelete(new Document("_id", manager.getDoc().get("_id")));
         return true;
     }
