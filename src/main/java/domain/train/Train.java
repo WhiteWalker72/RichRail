@@ -44,6 +44,7 @@ public class Train implements ITrain {
         return null;
     }
 
+    @Override
     public int getTotalPullingPower() {
         return components.stream()
                 .filter(component -> component instanceof LocomotiveComponent)
@@ -51,6 +52,7 @@ public class Train implements ITrain {
                 ).sum();
     }
 
+    @Override
     public int getUsedPullingPower() {
         return (int) components.stream()
                 .filter(component -> !(component instanceof LocomotiveComponent)).count();

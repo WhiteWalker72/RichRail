@@ -7,8 +7,6 @@ import domain.train.component.sub.PassagerComponent;
 
 public class ComponentBuilder {
 
-    private IComponent component;
-
     private final String id;
     private String type;
     private String image;
@@ -28,7 +26,6 @@ public class ComponentBuilder {
     }
 
     public ComponentBuilder withCargo(int cargo) {
-        component = new CargoComponent(component, cargo);
         type = "cargo";
         image = "cargowagon.png";
         this.cargo = cargo;
@@ -36,7 +33,6 @@ public class ComponentBuilder {
     }
 
     public ComponentBuilder withPullingPower(int pullingPower) {
-        component = new LocomotiveComponent(component, pullingPower);
         type = "locomotive";
         image = "locomotive.png";
         this.pullingPower = pullingPower;
@@ -44,7 +40,6 @@ public class ComponentBuilder {
     }
 
     public ComponentBuilder withPassengers(int seats) {
-        component = new PassagerComponent(component, seats);
         type = "passenger";
         image = "passengerwagon.png";
         this.seats = seats;
