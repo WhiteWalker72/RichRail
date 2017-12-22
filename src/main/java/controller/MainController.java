@@ -140,6 +140,7 @@ public class MainController implements IObserver {
         codeSubmit.setOnAction(event -> {
             String command = codeInput.getText();
             if (command.length() > 0) {
+                codeInput.setText("");
                 writeToConsole(CommandManager.getInstance().execute(command));
             }
         });

@@ -2,6 +2,7 @@ package domain.command.subcommands;
 
 import domain.command.Command;
 import domain.train.component.ComponentBuilder;
+import domain.train.component.IComponent;
 import utils.MathUtils;
 import utils.option.IOption;
 
@@ -30,7 +31,13 @@ public class NewTrainCommand extends Command {
         if (trainFacade.getComponentPair(trainName) != null) {
             return "component " + trainName + " already exists.";
         }
-        return trainFacade.createTrain(trainName, new ComponentBuilder(trainName).withPullingPower(power).build()) ?
+
+        ComponentBuilder locoBuilder = new ComponentBuilder(trainName).withPullingPower(power);
+        if (trainName.contains("thomas")) {
+            locoBuilder.withCustomImage("thomas.png");
+        }
+
+        return trainFacade.createTrain(trainName, locoBuilder.build()) ?
                 "train " + trainName + " created" : "train " + trainName + " already exists.";
     }
 
