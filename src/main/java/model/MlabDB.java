@@ -19,7 +19,7 @@ class MlabDB {
     private final String username = "admin";
     private final String password = "W7LeP3gvQ6H+296";
 
-    private static MlabDB instance;
+    private static volatile MlabDB instance;
 
     private MlabDB() {
         this.mongo = new MongoClient(new ServerAddress(host, port), Collections.singletonList(MongoCredential.createCredential(username, databaseName, password.toCharArray())));
@@ -35,8 +35,12 @@ class MlabDB {
     }
 
     public static MlabDB getInstance() {
-        if (instance == null)
-            instance = new MlabDB();
+        if (instance == null) {
+            synchronized (MlabDB.class) {
+                if (instance == null)
+                    instance = new MlabDB();
+            }
+        }
         return instance;
     }
 

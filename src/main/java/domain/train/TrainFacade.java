@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TrainFacade {
 
-    private static TrainFacade instance;
+    private static volatile TrainFacade instance;
     private TrainManager trainManager;
     private ComponentManager componentManager;
 
@@ -78,8 +78,12 @@ public class TrainFacade {
     }
 
     public static TrainFacade getInstance() {
-        if (instance == null)
-            instance = new TrainFacade();
+        if (instance == null){
+            synchronized (TrainManager.class) {
+                if (instance == null)
+                    instance = new TrainFacade();
+            }
+        }
         return instance;
     }
 

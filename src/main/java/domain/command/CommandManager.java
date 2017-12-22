@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class CommandManager {
 
-    private static CommandManager instance;
+    private static volatile CommandManager instance;
     private final Set<Command> commands = new HashSet<>();
 
     private CommandManager() {
@@ -49,8 +49,12 @@ public class CommandManager {
     }
 
     public static CommandManager getInstance() {
-        if (instance == null)
-            instance = new CommandManager();
+        if (instance == null) {
+            synchronized (CommandManager.class) {
+                if (instance == null)
+                    instance = new CommandManager();
+            }
+        }
         return instance;
     }
 
